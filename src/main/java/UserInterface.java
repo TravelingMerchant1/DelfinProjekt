@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class UserInterface {
     private Scanner input = new Scanner(System.in);
 
-    public void menuText(){
+    public void menuText() {
         System.out.println("Velkommen til Delfinens administrative system");
         System.out.println("1) Indmeldelse af nye medlemmer");
         System.out.println("2) Oversigt over medlemmer");
@@ -17,7 +17,8 @@ public class UserInterface {
         String menuInput = input.nextLine().toLowerCase();
         switch (menuInput) {
             case "1":
-
+                indmeldelse();
+                break;
             case "2":
 
             case "3":
@@ -31,6 +32,9 @@ public class UserInterface {
             case "7":
 
         }
+    }
+
+    public void indmeldelse() {
 
     }
 }
