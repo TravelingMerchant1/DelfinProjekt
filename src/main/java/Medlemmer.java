@@ -1,19 +1,25 @@
+import java.time.LocalDate;
+
 public class Medlemmer {
 
     private String navn;
+    private String efternavn;
     private int alder;
     private String køn;
     private boolean aktivitetsForm;
-    private boolean hold;
     private boolean konkurrenceSvømmer;
 
-    public Medlemmer(String navn, int alder, String køn, boolean aktivitetsForm, boolean hold, boolean konkurrenceSvømmer) {
+    public Medlemmer(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer) {
         this.navn = navn;
+        this.efternavn = efternavn;
         this.alder = alder;
         this.køn = køn;
         this.aktivitetsForm = aktivitetsForm;
-        this.hold = hold;
         this.konkurrenceSvømmer = konkurrenceSvømmer;
+    }
+
+    public Medlemmer() {
+
     }
 
     public String getNavn() {
@@ -22,6 +28,14 @@ public class Medlemmer {
 
     public void setNavn(String navn) {
         this.navn = navn;
+    }
+
+    public String getEfternavn() {
+        return efternavn;
+    }
+
+    public void setEfternavn(String efternavn) {
+        this.efternavn = efternavn;
     }
 
     public int getAlder() {
@@ -48,14 +62,6 @@ public class Medlemmer {
         this.aktivitetsForm = aktivitetsForm;
     }
 
-    public boolean isHold() {
-        return hold;
-    }
-
-    public void setHold(boolean hold) {
-        this.hold = hold;
-    }
-
     public boolean isKonkurrenceSvømmer() {
         return konkurrenceSvømmer;
     }
@@ -63,4 +69,5 @@ public class Medlemmer {
     public void setKonkurrenceSvømmer(boolean konkurrenceSvømmer) {
         this.konkurrenceSvømmer = konkurrenceSvømmer;
     }
+
 }
