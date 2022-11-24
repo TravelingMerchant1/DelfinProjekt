@@ -8,16 +8,17 @@ public class Medlemmer {
     private String køn;
     private boolean aktivitetsForm;
     private boolean konkurrenceSvømmer;
-
+    private boolean studerende;
     private int medlemsNummer;
 
-    public Medlemmer(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, int medlemsNummer) {
+    public Medlemmer(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, boolean studerende, int medlemsNummer) {
         this.navn = navn;
         this.efternavn = efternavn;
         this.alder = alder;
         this.køn = køn;
         this.aktivitetsForm = aktivitetsForm;
         this.konkurrenceSvømmer = konkurrenceSvømmer;
+        this.studerende = studerende;
         this.medlemsNummer = medlemsNummer;
     }
 
@@ -79,6 +80,14 @@ public class Medlemmer {
 
     public void setMedlemsNummer(int medlemsNummer) {
         this.medlemsNummer = medlemsNummer;
+    }
+
+    public boolean isStuderende() {
+        return studerende;
+    }
+
+    public void setStuderende(boolean studerende) {
+        this.studerende = studerende;
     }
 
 }

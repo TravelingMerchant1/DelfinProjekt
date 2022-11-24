@@ -26,6 +26,7 @@ public class Filehandler {
             output.print(";");
             output.print(medlem.getMedlemsNummer());
             output.println(";");
+            output.print(medlem.isStuderende());
             output.println();
         }
         output.close();

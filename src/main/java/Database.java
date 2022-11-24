@@ -13,8 +13,8 @@ public class Database {
 
     }
 
-    public void nyMedlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsform, boolean konkurrencesvømmer, int medlemsNummer) {
-        Medlemmer medlem = new Medlemmer(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, medlemsNummer);
+    public void nyMedlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsform, boolean konkurrencesvømmer, boolean studerende, int medlemsNummer) {
+        Medlemmer medlem = new Medlemmer(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, studerende, medlemsNummer);
         medlemmers.add(medlem);
     }
 
