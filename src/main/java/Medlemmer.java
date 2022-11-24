@@ -9,13 +9,16 @@ public class Medlemmer {
     private boolean aktivitetsForm;
     private boolean konkurrenceSvømmer;
 
-    public Medlemmer(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer) {
+    private int medlemsNummer;
+
+    public Medlemmer(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, int medlemsNummer) {
         this.navn = navn;
         this.efternavn = efternavn;
         this.alder = alder;
         this.køn = køn;
         this.aktivitetsForm = aktivitetsForm;
         this.konkurrenceSvømmer = konkurrenceSvømmer;
+        this.medlemsNummer = medlemsNummer;
     }
 
     public Medlemmer() {
@@ -68,6 +71,14 @@ public class Medlemmer {
 
     public void setKonkurrenceSvømmer(boolean konkurrenceSvømmer) {
         this.konkurrenceSvømmer = konkurrenceSvømmer;
+    }
+
+    public int getMedlemsNummer() {
+        return medlemsNummer;
+    }
+
+    public void setMedlemsNummer(int medlemsNummer) {
+        this.medlemsNummer = medlemsNummer;
     }
 
 }
