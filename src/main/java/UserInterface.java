@@ -179,6 +179,34 @@ public class UserInterface {
             System.out.println("Medlemsnummer : " + medlemmer.getMedlemsNummer());
 
         }
+        public void kontigentOversigt(){
+            //For aktive medlemmer er kontingentet for ungdomssvømmere (under 18 år) 1000 kr. årligt,
+            //For seniorsvømmere (18 år og over) 1600 kr. årligt.
+            //For medlemmer over 60 år gives der 25 % rabat af seniortaksten.
+            //For passivt medlemskab er taksten 500 kr. årligt.
+            //For studerende givers der 15 % rabat af seniortaksten.
+
+            for (Medlemmer medlemmer: controller.getMedlemmer()){
+                if (medlemmer.getAlder()<18){
+                    int kontigentUng;
+                    kontigentUng=1000;
+                    System.out.println("Kontigent for den medlem er: "+kontigentUng);
+                } else if (medlemmer.getAlder()==18 && medlemmer.getAlder()<=60) {
+                    int kontigentSenior=1600;
+                    System.out.println("Kontigent for den medlem er: "+kontigentSenior);
+                } else if (medlemmer.getAlder()>60){
+                    double kontigentST=1600*(1-0.25);
+                    System.out.println("Kontigent for den medlem er: "+kontigentST);
+                }else if (medlemmer.isAktivitetsForm()==true){
+                    double kontigentAktiv=500;
+                    System.out.println("Kontigent for den medlem er: "+kontigentAktiv);
+                } else if (medlemmer.isStuderende()==true){
+                    double kontigentStud=1600*(1-0.15);
+                    System.out.println("Kontigent for den medlem er: "+kontigentStud);
+                }
+            }
+
+        }
     }
 }
 
