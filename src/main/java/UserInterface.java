@@ -66,7 +66,12 @@ public class UserInterface {
         String køn = input.nextLine();
 
         System.out.println("aktivitetsform på medlem (Aktiv/Passiv): ");
-        boolean aktivitetsform = input.nextBoolean();
+        boolean aktivitetsform = true;
+        if (input.nextLine().equalsIgnoreCase("aktiv")){
+            aktivitetsform = true;
+        } else if (input.nextLine().equalsIgnoreCase("passiv")){
+            aktivitetsform = false;
+        }
 
         System.out.println("Er medlem en konkurrencesvømmer (Motionist/Konkurrencesvømmer): ");
         boolean konkurrencesvømmer = input.nextBoolean();
@@ -83,7 +88,13 @@ public class UserInterface {
             System.out.println("Navn: " + navn + " " + efternavn);
             System.out.println("Alder: " + alder);
             System.out.println("Køn: " + køn);
-            System.out.println("Aktivitetsform: " + aktivitetsform);
+            String aktivitet = "";
+            if (aktivitetsform == true){
+                aktivitet = "aktiv";
+            } else {
+                aktivitet = "passiv";
+            }
+            System.out.println("Aktivitetsform: " + aktivitet);
             System.out.println("Konkurrencesvømmer: " + konkurrencesvømmer);
             System.out.println("Medlemsnummer: " + medlemsNummer);
             System.out.println("---------------------------------");
