@@ -38,7 +38,8 @@ public class UserInterface {
                     sletteMedlemmer();
                     break;
                 case 4:
-
+                    medlemsOversigt();
+                    break;
                 case 5:
 
                 case 6:
@@ -134,7 +135,7 @@ public class UserInterface {
         }
     }
 
-    public void sletteMedlemmer () {
+    public void sletteMedlemmer() {
         for (int i = 0; i < controller.getMedlemmer().size(); i++) {
             System.out.println(i + 1 + ":" + controller.getMedlemmer().get(i));
         }
@@ -146,6 +147,17 @@ public class UserInterface {
         Medlemmer sletMedlem = controller.getMedlemmer().remove(nr - 1); // index starter fra 0
         System.out.println("Medlem " + sletMedlem + " er slettet fra systemet");
 
+    }
+
+    public void medlemsOversigt() {
+        for (Medlemmer medlemmer : controller.getMedlemmer()) {
+            System.out.println("---------------------------------");
+            System.out.println("Navn: " + medlemmer.getNavn() + " " + medlemmer.getEfternavn());
+            System.out.println("Alder: " + medlemmer.getAlder());
+            System.out.println("Køn: " + medlemmer.getKøn());
+            System.out.println("Aktivitetsform: " + medlemmer.isAktivitetsForm());
+            System.out.println("Konkurrencesvømmer: " + medlemmer.isKonkurrenceSvømmer());
+        }
     }
 }
 
