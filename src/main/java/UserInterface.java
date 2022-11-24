@@ -76,6 +76,9 @@ public class UserInterface {
         System.out.println("Er medlem en konkurrencesvømmer (Motionist/Konkurrencesvømmer): ");
         boolean konkurrencesvømmer = input.nextBoolean();
 
+        System.out.println("Er medlemmet studerende?");
+        boolean studerende = input.nextBoolean();
+
         int medlemsNummer = 0;
         for (Medlemmer medlemmer : controller.getMedlemmer()){
             int midlertidigtMedlemsNummer = controller.getMedlemmer().size();
@@ -83,7 +86,7 @@ public class UserInterface {
         }
 
         System.out.println("Medlem er gemt i databasen");
-        controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, medlemsNummer);
+        controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, studerende, medlemsNummer);
             System.out.println("---------------------------------");
             System.out.println("Navn: " + navn + " " + efternavn);
             System.out.println("Alder: " + alder);
@@ -96,6 +99,7 @@ public class UserInterface {
             }
             System.out.println("Aktivitetsform: " + aktivitet);
             System.out.println("Konkurrencesvømmer: " + konkurrencesvømmer);
+            System.out.println("Studerende: " + studerende);
             System.out.println("Medlemsnummer: " + medlemsNummer);
             System.out.println("---------------------------------");
     }
