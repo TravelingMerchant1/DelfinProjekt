@@ -164,6 +164,8 @@ public class UserInterface {
             System.out.println("Køn: " + medlemmer.getKøn());
             System.out.println("Aktivitetsform: " + medlemmer.isAktivitetsForm());
             System.out.println("Konkurrencesvømmer: " + medlemmer.isKonkurrenceSvømmer());
+            System.out.println("Medlemsnummer : " + medlemmer.getMedlemsNummer());
+
         }
     }
 }
