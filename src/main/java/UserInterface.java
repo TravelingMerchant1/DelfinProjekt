@@ -68,8 +68,14 @@ public class UserInterface {
         System.out.println("Er medlem en konkurrencesvømmer (Motionist/Konkurrencesvømmer): ");
         boolean konkurrencesvømmer = input.nextBoolean();
 
+        int medlemsNummer = 0;
+        for (Medlemmer medlemmer : controller.getMedlemmer()){
+            int midlertidigtMedlemsNummer = controller.getMedlemmer().size();
+            medlemsNummer = midlertidigtMedlemsNummer + 1;
+        }
+
         System.out.println("Medlem er gemt i databasen");
-        controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer);
+        controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, medlemsNummer);
         for (Medlemmer medlemmer : controller.getMedlemmer()) {
             System.out.println("---------------------------------");
             System.out.println("Navn: " + navn + " " + efternavn);
@@ -77,6 +83,7 @@ public class UserInterface {
             System.out.println("Køn: " + køn);
             System.out.println("Aktivitetsform: " + aktivitetsform);
             System.out.println("Konkurrencesvømmer: " + konkurrencesvømmer);
+            System.out.println("Medlemsnummer: " + medlemsNummer);
             System.out.println("---------------------------------");
         }
         input.nextLine();

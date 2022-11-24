@@ -14,8 +14,8 @@ public class Controller {
         }
     }
 
-    public void nyMedlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsform, boolean konkurrencesvømmer){
-        database.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer);
+    public void nyMedlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsform, boolean konkurrencesvømmer, int medlemsNummer){
+        database.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, medlemsNummer);
     }
 
     public ArrayList<Medlemmer> getMedlemmer() {
