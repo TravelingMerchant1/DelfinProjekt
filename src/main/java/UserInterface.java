@@ -79,7 +79,6 @@ public class UserInterface {
 
         System.out.println("Medlem er gemt i databasen");
         controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, medlemsNummer);
-        for (Medlemmer medlemmer : controller.getMedlemmer()) {
             System.out.println("---------------------------------");
             System.out.println("Navn: " + navn + " " + efternavn);
             System.out.println("Alder: " + alder);
@@ -88,8 +87,6 @@ public class UserInterface {
             System.out.println("Konkurrencesvømmer: " + konkurrencesvømmer);
             System.out.println("Medlemsnummer: " + medlemsNummer);
             System.out.println("---------------------------------");
-        }
-        input.nextLine();
     }
 
     public void redigerMedlem() {
