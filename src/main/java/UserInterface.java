@@ -1,3 +1,4 @@
+import java.lang.reflect.Parameter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -179,6 +180,7 @@ public class UserInterface {
             System.out.println("Medlemsnummer : " + medlemmer.getMedlemsNummer());
 
         }
+    }
         public void kontigentOversigt(){
             //For aktive medlemmer er kontingentet for ungdomssvømmere (under 18 år) 1000 kr. årligt,
             //For seniorsvømmere (18 år og over) 1600 kr. årligt.
@@ -207,6 +209,6 @@ public class UserInterface {
             }
 
         }
-    }
+
 }
 
