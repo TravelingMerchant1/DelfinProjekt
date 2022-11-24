@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -34,7 +35,8 @@ public class UserInterface {
                     redigerMedlem();
                     break;
                 case 3:
-
+                    sletteMedlemmer();
+                    break;
                 case 4:
 
                 case 5:
@@ -87,49 +89,63 @@ public class UserInterface {
             System.out.println(i + 1 + ":" + controller.getMedlemmer().get(i));
         }
 
-        System.out.println("indtast nummer på den person der skal redigeres:");
+        System.out.println("indtast nummer på medlem der skal redigeres:");
         int nr = input.nextInt();
         input.nextLine();
 
-        Medlemmer editPerson = controller.getMedlemmer().get(nr - 1); // index starter fra 0
-        System.out.println("Editperson: " + editPerson);
+        Medlemmer editMedlem = controller.getMedlemmer().get(nr - 1); // index starter fra 0
+        System.out.println("Edit medlem: " + editMedlem);
 
         System.out.println("Rediger data og tryk ENTER. Hvis data ikke skal redigeres tryk ENTER");
 
-        System.out.println("Navn: " + editPerson.getNavn());
+        System.out.println("Navn: " + editMedlem.getNavn());
         String nyNavn = input.nextLine();
         if (!nyNavn.isEmpty())
-            editPerson.setNavn(nyNavn);
+            editMedlem.setNavn(nyNavn);
 
-        System.out.println("Efternavn: " + editPerson.getEfternavn());
+        System.out.println("Efternavn: " + editMedlem.getEfternavn());
         String nyEfternavn = input.nextLine();
         if (!nyEfternavn.isEmpty()) {
-            editPerson.setEfternavn(nyEfternavn);
+            editMedlem.setEfternavn(nyEfternavn);
         }
 
-        System.out.println("Alder: " + editPerson.getAlder());
+        System.out.println("Alder: " + editMedlem.getAlder());
         String nyAlder = input.nextLine();
         if (!nyAlder.isEmpty()) {
-            editPerson.setAlder(Integer.parseInt(nyAlder));
+            editMedlem.setAlder(Integer.parseInt(nyAlder));
         }
 
-        System.out.println("Køn: " + editPerson.getKøn());
+        System.out.println("Køn: " + editMedlem.getKøn());
         String nyKøn = input.nextLine();
         if (!nyKøn.isEmpty()) {
-            editPerson.setKøn(nyKøn);
+            editMedlem.setKøn(nyKøn);
         }
 
-        System.out.println("Aktivitetsform: " + editPerson.isAktivitetsForm());
+        System.out.println("Aktivitetsform: " + editMedlem.isAktivitetsForm());
         String nyAktivitetsform = input.nextLine();
         if (!nyAktivitetsform.isEmpty()) {
-            editPerson.setAktivitetsForm(Boolean.parseBoolean(nyAktivitetsform));
+            editMedlem.setAktivitetsForm(Boolean.parseBoolean(nyAktivitetsform));
         }
 
-        System.out.println("Konkurrencesvømmer: " + editPerson.isKonkurrenceSvømmer());
+        System.out.println("Konkurrencesvømmer: " + editMedlem.isKonkurrenceSvømmer());
         String nyKonkurrencesvømmer = input.nextLine();
         if (!nyKonkurrencesvømmer.isEmpty()) {
-            editPerson.setKonkurrenceSvømmer(Boolean.parseBoolean(nyKonkurrencesvømmer));
+            editMedlem.setKonkurrenceSvømmer(Boolean.parseBoolean(nyKonkurrencesvømmer));
         }
+    }
+
+    public void sletteMedlemmer () {
+        for (int i = 0; i < controller.getMedlemmer().size(); i++) {
+            System.out.println(i + 1 + ":" + controller.getMedlemmer().get(i));
+        }
+
+        System.out.println("indtast nummer på medlem der skal slettes:");
+        int nr = input.nextInt();
+        input.nextLine();
+
+        Medlemmer sletMedlem = controller.getMedlemmer().remove(nr - 1); // index starter fra 0
+        System.out.println("Medlem " + sletMedlem + " er slettet fra systemet");
+
     }
 }
 

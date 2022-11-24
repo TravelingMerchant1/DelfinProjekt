@@ -24,6 +24,7 @@ public class Filehandler {
             output.print(";");
             output.print(medlem.isKonkurrenceSvømmer());
             output.print(";");
+            output.println();
         }
         output.close();
     }
