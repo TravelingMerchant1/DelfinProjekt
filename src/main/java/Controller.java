@@ -1,5 +1,4 @@
 import java.io.FileNotFoundException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Controller {
@@ -14,8 +13,8 @@ public class Controller {
         }
     }
 
-    public void nyMedlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsform, boolean konkurrencesvømmer, boolean studerende, int medlemsNummer){
-        database.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, studerende, medlemsNummer);
+    public void nyMedlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsform, boolean konkurrencesvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer){
+        database.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer);
     }
 
     public ArrayList<Medlemmer> getMedlemmer() {

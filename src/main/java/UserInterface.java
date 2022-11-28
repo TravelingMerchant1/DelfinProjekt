@@ -52,9 +52,12 @@ public class UserInterface {
 
 
     public void indmeldelse() {
+        String hold = null;
+        String disciplin = null;
+        double træningsresultat = 0;
+
         System.out.println("Navn på medlem: ");
         String navn = input.nextLine();
-
 
         System.out.println("Efternavn på medlem: ");
         String efternavn = input.nextLine();
@@ -68,41 +71,49 @@ public class UserInterface {
 
         System.out.println("aktivitetsform på medlem (Aktiv/Passiv): ");
         boolean aktivitetsform = true;
-        if (input.nextLine().equalsIgnoreCase("aktiv")){
+        if (input.nextLine().equalsIgnoreCase("aktiv")) {
             aktivitetsform = true;
-        } else if (input.nextLine().equalsIgnoreCase("passiv")){
+        } else if (input.nextLine().equalsIgnoreCase("passiv")) {
             aktivitetsform = false;
         }
 
         System.out.println("Er medlem en konkurrencesvømmer (Motionist/Konkurrencesvømmer): ");
         boolean konkurrencesvømmer = input.nextBoolean();
 
+        if (konkurrencesvømmer) {
+            System.out.println("Hvilket hold skal medlem være en del af? (Junior/Senior)");
+            hold = input.nextLine();
+
+            System.out.println("Hvilken disciplin skal medlem svømme i?");
+            disciplin = input.nextLine();
+        }
+
         System.out.println("Er medlemmet studerende?");
         boolean studerende = input.nextBoolean();
 
         int medlemsNummer = 0;
-        for (Medlemmer medlemmer : controller.getMedlemmer()){
+        for (Medlemmer medlemmer : controller.getMedlemmer()) {
             int midlertidigtMedlemsNummer = controller.getMedlemmer().size();
             medlemsNummer = midlertidigtMedlemsNummer + 1;
         }
 
         System.out.println("Medlem er gemt i databasen");
-        controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, studerende, medlemsNummer);
-            System.out.println("---------------------------------");
-            System.out.println("Navn: " + navn + " " + efternavn);
-            System.out.println("Alder: " + alder);
-            System.out.println("Køn: " + køn);
-            String aktivitet = "";
-            if (aktivitetsform == true){
-                aktivitet = "aktiv";
-            } else {
-                aktivitet = "passiv";
-            }
-            System.out.println("Aktivitetsform: " + aktivitet);
-            System.out.println("Konkurrencesvømmer: " + konkurrencesvømmer);
-            System.out.println("Studerende: " + studerende);
-            System.out.println("Medlemsnummer: " + medlemsNummer);
-            System.out.println("---------------------------------");
+        controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer);
+        System.out.println("---------------------------------");
+        System.out.println("Navn: " + navn + " " + efternavn);
+        System.out.println("Alder: " + alder);
+        System.out.println("Køn: " + køn);
+        String aktivitet = "";
+        if (aktivitetsform == true) {
+            aktivitet = "aktiv";
+        } else {
+            aktivitet = "passiv";
+        }
+        System.out.println("Aktivitetsform: " + aktivitet);
+        System.out.println("Konkurrencesvømmer: " + konkurrencesvømmer);
+        System.out.println("Studerende: " + studerende);
+        System.out.println("Medlemsnummer: " + medlemsNummer);
+        System.out.println("---------------------------------");
     }
 
     public void redigerMedlem() {

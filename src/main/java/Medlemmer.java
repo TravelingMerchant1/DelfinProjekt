@@ -8,18 +8,25 @@ public class Medlemmer {
     private String køn;
     private boolean aktivitetsForm;
     private boolean konkurrenceSvømmer;
+    private String hold;
+    private String disciplin;
+    private double træningsresultat;
     private boolean studerende;
     private int medlemsNummer;
 
-    public Medlemmer(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, boolean studerende, int medlemsNummer) {
+    public Medlemmer(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer) {
         this.navn = navn;
         this.efternavn = efternavn;
         this.alder = alder;
         this.køn = køn;
         this.aktivitetsForm = aktivitetsForm;
         this.konkurrenceSvømmer = konkurrenceSvømmer;
+        this.hold = hold;
+        this.disciplin = disciplin;
+        this.træningsresultat = træningsresultat;
         this.studerende = studerende;
         this.medlemsNummer = medlemsNummer;
+
     }
 
     public Medlemmer() {
@@ -74,6 +81,30 @@ public class Medlemmer {
         this.konkurrenceSvømmer = konkurrenceSvømmer;
     }
 
+    public String getHold() {
+        return hold;
+    }
+
+    public void setHold(String hold) {
+        this.hold = hold;
+    }
+
+    public String getDisciplin() {
+        return disciplin;
+    }
+
+    public void setDisciplin(String disciplin) {
+        this.disciplin = disciplin;
+    }
+
+    public double getTræningsresultat() {
+        return træningsresultat;
+    }
+
+    public void setTræningsresultat(double træningsresultat) {
+        this.træningsresultat = træningsresultat;
+    }
+
     public int getMedlemsNummer() {
         return medlemsNummer;
     }
@@ -89,5 +120,7 @@ public class Medlemmer {
     public void setStuderende(boolean studerende) {
         this.studerende = studerende;
     }
+
+
 
 }
