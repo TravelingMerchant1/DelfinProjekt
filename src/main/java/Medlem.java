@@ -1,6 +1,4 @@
-import java.time.LocalDate;
-
-public class Medlemmer {
+public class Medlem {
 
     private String navn;
     private String efternavn;
@@ -14,7 +12,7 @@ public class Medlemmer {
     private boolean studerende;
     private int medlemsNummer;
 
-    public Medlemmer(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer) {
+    public Medlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer) {
         this.navn = navn;
         this.efternavn = efternavn;
         this.alder = alder;
@@ -29,7 +27,7 @@ public class Medlemmer {
 
     }
 
-    public Medlemmer() {
+    public Medlem() {
 
     }
 

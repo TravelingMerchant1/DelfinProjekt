@@ -1,12 +1,10 @@
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Locale;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class UserInterface {
+    private int menuvalg;
     private Scanner input = new Scanner(System.in);
-    int menuvalg;
-    Controller controller = new Controller();
+    private Controller controller = new Controller();
 
 
     public void menu() {
@@ -21,7 +19,7 @@ public class UserInterface {
         System.out.println("9) Exit");
     }
 
-    public void start() {
+    public void start() throws FileNotFoundException {
 
         do {
             menu();
@@ -41,7 +39,8 @@ public class UserInterface {
                     medlemsOversigt();
                     break;
                 case 5:
-
+//                    controller.sorteretMedlemmer();
+                    break;
                 case 6:
                     kontigentOversigt();
             }
@@ -91,15 +90,21 @@ public class UserInterface {
         System.out.println("Er medlemmet studerende?");
         boolean studerende = input.nextBoolean();
 
+        // TODO: Flyt/ændr til at være i databasen
         int medlemsNummer = 0;
-        for (Medlemmer medlemmer : controller.getMedlemmer()) {
+        for (Medlem medlemmer : controller.getMedlemmer()) {
             int midlertidigtMedlemsNummer = controller.getMedlemmer().size();
             medlemsNummer = midlertidigtMedlemsNummer + 1;
         }
 
         System.out.println("Medlem er gemt i databasen");
-        controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer);
+        Medlem medlem = controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer);
+
         System.out.println("---------------------------------");
+
+
+        udskrivMedlem( medlem );
+
         System.out.println("Navn: " + navn + " " + efternavn);
         System.out.println("Alder: " + alder);
         System.out.println("Køn: " + køn);
@@ -125,7 +130,7 @@ public class UserInterface {
         int nr = input.nextInt();
         input.nextLine();
 
-        Medlemmer editMedlem = controller.getMedlemmer().get(nr - 1); // index starter fra 0
+        Medlem editMedlem = controller.getMedlemmer().get(nr - 1); // index starter fra 0
         System.out.println("Edit medlem: " + editMedlem);
 
         System.out.println("Rediger data og tryk ENTER. Hvis data ikke skal redigeres tryk ENTER");
@@ -175,23 +180,29 @@ public class UserInterface {
         int nr = input.nextInt();
         input.nextLine();
 
-        Medlemmer sletMedlem = controller.getMedlemmer().remove(nr - 1); // index starter fra 0
+        // TODO: Lav en deleteMedlem metode i controller i stedet
+        Medlem sletMedlem = controller.getMedlemmer().remove(nr - 1); // index starter fra 0
         System.out.println("Medlem " + sletMedlem + " er slettet fra systemet");
 
     }
 
     public void medlemsOversigt() {
-        for (Medlemmer medlemmer : controller.getMedlemmer()) {
+        for (Medlem medlem : controller.getMedlemmer()) {
             System.out.println("---------------------------------");
-            System.out.println("Navn: " + medlemmer.getNavn() + " " + medlemmer.getEfternavn());
-            System.out.println("Alder: " + medlemmer.getAlder());
-            System.out.println("Køn: " + medlemmer.getKøn());
-            System.out.println("Aktivitetsform: " + medlemmer.isAktivitetsForm());
-            System.out.println("Konkurrencesvømmer: " + medlemmer.isKonkurrenceSvømmer());
-            System.out.println("Medlemsnummer : " + medlemmer.getMedlemsNummer());
+            udskrivMedlem(medlem);
 
         }
     }
+
+    private void udskrivMedlem(Medlem medlem) {
+        System.out.println("Navn: " + medlem.getNavn() + " " + medlem.getEfternavn());
+        System.out.println("Alder: " + medlem.getAlder());
+        System.out.println("Køn: " + medlem.getKøn());
+        System.out.println("Aktivitetsform: " + medlem.isAktivitetsForm());
+        System.out.println("Konkurrencesvømmer: " + medlem.isKonkurrenceSvømmer());
+        System.out.println("Medlemsnummer : " + medlem.getMedlemsNummer());
+    }
+
     public void kontigentOversigt(){
         //For aktive medlemmer er kontingentet for ungdomssvømmere (under 18 år) 1000 kr. årligt,
         //For seniorsvømmere (18 år og over) 1600 kr. årligt.
@@ -199,7 +210,7 @@ public class UserInterface {
         //For passivt medlemskab er taksten 500 kr. årligt.
         //For studerende givers der 15 % rabat af seniortaksten.
 
-        for (Medlemmer medlemmer: controller.getMedlemmer()){
+        for (Medlem medlemmer: controller.getMedlemmer()){
             if (medlemmer.getAlder()<18){
                int kontigentUng;
                 kontigentUng=1000;

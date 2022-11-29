@@ -4,14 +4,14 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class Filehandler {
-    PrintStream output = new PrintStream(new File("data/medlemmer.csv"));
 
     public Filehandler() throws FileNotFoundException {
 
     }
 
-    public void gemMedlemmer(ArrayList<Medlemmer> dataSaver) {
-        for (Medlemmer medlem : dataSaver) {
+    public void gemMedlemmer(ArrayList<Medlem> dataSaver) throws FileNotFoundException {
+         PrintStream output = new PrintStream(new File("data/medlemmer.csv"));
+        for (Medlem medlem : dataSaver) {
             output.print(medlem.getNavn());
             output.print(";");
             output.print(medlem.getEfternavn());
@@ -23,10 +23,10 @@ public class Filehandler {
             output.print(medlem.isAktivitetsForm());
             output.print(";");
             output.print(medlem.isKonkurrenceSvømmer());
-            output.print(";");
-            output.print(medlem.getMedlemsNummer());
             output.println(";");
             output.print(medlem.isStuderende());
+            output.print(";");
+            output.print(medlem.getMedlemsNummer());
             output.println();
         }
         output.close();
