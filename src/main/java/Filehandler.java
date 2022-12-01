@@ -2,15 +2,39 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Filehandler {
 
-    public Filehandler() throws FileNotFoundException {
+    private File file = new File("data/medlemmer.csv");
 
+    public ArrayList<Medlem> indlæsMedlemmer()  {
+        ArrayList<Medlem> personer = new ArrayList<>();
+        Scanner sc;
+        try {
+            sc = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        while (sc.hasNext()) {
+
+            String linje = sc.nextLine();
+            String[] attributter = linje.split(";");
+
+            Medlem indlaestPerson = new Medlem(
+                    attributter[0],
+                    attributter[1],
+                    Integer.parseInt(attributter[2]));
+            personer.add(indlaestPerson);
+        }
+        sc.close();
+        return personer;
     }
 
+
+
     public void gemMedlemmer(ArrayList<Medlem> dataSaver) throws FileNotFoundException {
-         PrintStream output = new PrintStream(new File("data/medlemmer.csv"));
+        PrintStream output = new PrintStream(file);
         for (Medlem medlem : dataSaver) {
             output.print(medlem.getNavn());
             output.print(";");

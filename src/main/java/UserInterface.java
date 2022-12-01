@@ -1,11 +1,11 @@
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
     private int menuvalg;
     private Scanner input = new Scanner(System.in);
     private Controller controller = new Controller();
-
 
     public void menu() {
         System.out.println("Velkommen til Delfinens administrative system");
@@ -16,6 +16,8 @@ public class UserInterface {
         System.out.println("5) Opdater medlemmers resultater");
         System.out.println("6) Kontigent oversigt");
         System.out.println("7) Oversigt over hold");
+        System.out.println("8) Oversigt over aldersgrupper");
+        System.out.println("10) Total Kontingent");
         System.out.println("9) Exit");
     }
 
@@ -43,6 +45,15 @@ public class UserInterface {
                     break;
                 case 6:
                     kontigentOversigt();
+                    break;
+                case 8:
+                    controller.aldersOversigt();
+                    break;
+                case 10:
+                    kontingentTotal();
+                    break;
+
+
             }
         } while (menuvalg != 9);
         System.out.println("Du aflsutter nu programmet");
@@ -54,6 +65,9 @@ public class UserInterface {
         String hold = null;
         String disciplin = null;
         double træningsresultat = 0;
+        System.out.println(controller.getDatabase().medlemsNummer());
+        int medlemsNummer = controller.getDatabase().medlemsNummer();
+
 
         System.out.println("Navn på medlem: ");
         String navn = input.nextLine();
@@ -90,34 +104,12 @@ public class UserInterface {
         System.out.println("Er medlemmet studerende?");
         boolean studerende = input.nextBoolean();
 
-        // TODO: Flyt/ændr til at være i databasen
-        int medlemsNummer = 0;
-        for (Medlem medlemmer : controller.getMedlemmer()) {
-            int midlertidigtMedlemsNummer = controller.getMedlemmer().size();
-            medlemsNummer = midlertidigtMedlemsNummer + 1;
-        }
-
         System.out.println("Medlem er gemt i databasen");
+
         Medlem medlem = controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer);
 
         System.out.println("---------------------------------");
-
-
-        udskrivMedlem( medlem );
-
-        System.out.println("Navn: " + navn + " " + efternavn);
-        System.out.println("Alder: " + alder);
-        System.out.println("Køn: " + køn);
-        String aktivitet = "";
-        if (aktivitetsform == true) {
-            aktivitet = "aktiv";
-        } else {
-            aktivitet = "passiv";
-        }
-        System.out.println("Aktivitetsform: " + aktivitet);
-        System.out.println("Konkurrencesvømmer: " + konkurrencesvømmer);
-        System.out.println("Studerende: " + studerende);
-        System.out.println("Medlemsnummer: " + medlemsNummer);
+        udskrivMedlem(medlem);
         System.out.println("---------------------------------");
     }
 
@@ -187,12 +179,13 @@ public class UserInterface {
     }
 
     public void medlemsOversigt() {
-        for (Medlem medlem : controller.getMedlemmer()) {
-            System.out.println("---------------------------------");
-            udskrivMedlem(medlem);
-
+        System.out.println(controller.getFilehandler().indlæsMedlemmer());
+        for (Medlem medlem : controller.getFilehandler().indlæsMedlemmer()) {
+            System.out.println(medlem.getNavn() + " " + medlem.getEfternavn());
         }
+
     }
+
 
     private void udskrivMedlem(Medlem medlem) {
         System.out.println("Navn: " + medlem.getNavn() + " " + medlem.getEfternavn());
@@ -203,33 +196,13 @@ public class UserInterface {
         System.out.println("Medlemsnummer : " + medlem.getMedlemsNummer());
     }
 
-    public void kontigentOversigt(){
-        //For aktive medlemmer er kontingentet for ungdomssvømmere (under 18 år) 1000 kr. årligt,
-        //For seniorsvømmere (18 år og over) 1600 kr. årligt.
-        //For medlemmer over 60 år gives der 25 % rabat af seniortaksten.
-        //For passivt medlemskab er taksten 500 kr. årligt.
-        //For studerende givers der 15 % rabat af seniortaksten.
-
-        for (Medlem medlemmer: controller.getMedlemmer()){
-            if (medlemmer.getAlder()<18){
-               int kontigentUng;
-                kontigentUng=1000;
-                System.out.println("Kontigent for den medlem er: "+kontigentUng);
-            } else if (medlemmer.getAlder()==18 && medlemmer.getAlder()<=60) {
-                int kontigentSenior=1600;
-                System.out.println("Kontigent for den medlem er: "+kontigentSenior);
-            } else if (medlemmer.getAlder()>60){
-                double kontigentST=1600*(1-0.25);
-                System.out.println("Kontigent for den medlem er: "+kontigentST);
-            }else if (medlemmer.isAktivitetsForm()==true){
-                double kontigentAktiv=500;
-                System.out.println("Kontigent for den medlem er: "+kontigentAktiv);
-            } else if (medlemmer.isStuderende()==true){
-                double kontigentStud=1600*(1-0.15);
-                System.out.println("Kontigent for den medlem er: "+kontigentStud);
-            }
-        }
-
+    public void kontigentOversigt() {
+        controller.kontingentOversigt();
     }
+    public void kontingentTotal(){
+        System.out.println("Den totale bruttoindkomst er: " + controller.kontingentTotal() + " kr.");
+    }
+
+
 }
 
