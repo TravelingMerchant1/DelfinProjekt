@@ -59,7 +59,7 @@ public class Controller {
     }
 
 //    public void sorteretMedlemmer() {
-//        Collections.sort(database.getMedlemmers(), new HoldComparator().thenComparing(new DisciplinComparator().thenComparing(new TræningsresultaterComparator())));
+//        Collections.sort(database.getMedlemmers(), new Comparator.HoldComparator().thenComparing(new Comparator.DisciplinComparator().thenComparing(new TræningsresultaterComparator())));
 //        for (Medlem sorteretMedlemmer : database.getMedlemmers()) {
 //            System.out.println(sorteretMedlemmer);
 //        }
