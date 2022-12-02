@@ -21,18 +21,18 @@ public class Database {
 
 
     public int medlemsNummer() {
-        int medlemsNummer;
+        int medlemsNummer = 10000;
         try {
             Scanner scanner = new Scanner(medlemsNummerFil);
             Writer nytNummer = new FileWriter(medlemsNummerFil);
 
-            if (medlemsNummerFil.length() == 0){
-                medlemsNummer = 10000;
-                nytNummer.write(Integer.toString(medlemsNummer));
-            } else {
-                medlemsNummer = scanner.nextInt();
+            //if (medlemsNummerFil.length() == 0){
+              //  medlemsNummer = 10000;
+             //   nytNummer.write(Integer.toString(medlemsNummer));
+           // } else {
+               // medlemsNummer = scanner.nextInt();
                 nytNummer.write(Integer.toString(medlemsNummer + 1));
-            }
+           // }
             scanner.close();
             nytNummer.close();
         } catch (FileNotFoundException e) {

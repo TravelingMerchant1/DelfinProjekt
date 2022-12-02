@@ -73,7 +73,7 @@ public class Controller {
         return database.getMedlemmer();
     }
 
-    public void saveData() throws FileNotFoundException {
+    public void gemData() throws FileNotFoundException {
     database.getMedlemmer();
     filehandler.gemMedlemmer(getMedlemmer());
     }
