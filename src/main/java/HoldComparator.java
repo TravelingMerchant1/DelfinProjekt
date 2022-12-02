@@ -1,5 +1,3 @@
-package Comparator;
-
 import java.util.Comparator;
 
 public class HoldComparator implements Comparator<Medlem> {

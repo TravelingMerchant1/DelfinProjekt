@@ -1,5 +1,3 @@
-package Comparator;
-
 import java.util.Comparator;
 
 public class DisciplinComparator implements Comparator<Medlem> {
