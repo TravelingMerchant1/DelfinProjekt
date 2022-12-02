@@ -71,7 +71,7 @@ public class UserInterface {
 
     public void kasserMenu() throws FileNotFoundException {
         System.out.println("Kasser Menu:");
-        System.out.println("1) Kontingent Oversigt.");
+        System.out.println("1) Kontingent Brutto Total.");
         System.out.println("2) Kontingent Per Person.");
         System.out.println("3) Restance Oversigt.");
         System.out.println("4) Rediger Medlems Restance.");
@@ -83,13 +83,16 @@ public class UserInterface {
         menuValgInput();
         switch (menuvalg) {
             case 1:
-                formandMenu();
+                kontingentTotal();
                 break;
             case 2:
-                kasserMenu();
+                kontigentOversigt();
                 break;
             case 3:
-                trænerMenu();
+
+                break;
+                case 4:
+
                 break;
             case 9:
                 startMenu();
@@ -115,7 +118,6 @@ public class UserInterface {
             case 2:
                 break;
             case 3:
-                trænerMenu();
                 break;
             case 9:
                 startMenu();
@@ -200,24 +202,24 @@ public class UserInterface {
         }
 
 
-        System.out.println("aktivitetsform på medlem (Aktiv/Passiv): ");
+        System.out.println("aktivitetsform på medlem (A)ktiv/(P)assiv: ");
         boolean aktivitetsform = true;
-        if (input.nextLine().equalsIgnoreCase("aktiv")) {
+        if (input.nextLine().equalsIgnoreCase("a")) {
             aktivitetsform = true;
-        } else if (input.nextLine().equalsIgnoreCase("passiv")) {
+        } else if (input.nextLine().equalsIgnoreCase("p")) {
             aktivitetsform = false;
         } else if (!input.nextLine().equalsIgnoreCase("aktiv") || !input.nextLine().equalsIgnoreCase("passiv")) {
             System.out.println("Venligst indtast Aktiv/Passiv");
         }
 
-        System.out.println("Er medlem en konkurrencesvømmer (Motionist/Konkurrencesvømmer): ");
+        System.out.println("Er medlem en konkurrencesvømmer (M)otionist/(K)onkurrencesvømmer: ");
         boolean konkurrencesvømmer = true;
-        if (input.nextLine().equalsIgnoreCase("aktiv")) {
+        if (input.nextLine().equalsIgnoreCase("m")) {
             konkurrencesvømmer = true;
-        } else if (input.nextLine().equalsIgnoreCase("passiv")) {
+        } else if (input.nextLine().equalsIgnoreCase("k")) {
             konkurrencesvømmer = false;
         } else {
-            System.out.println("Venligst indtast J/N");
+            System.out.println("Venligst indtast M/K");
         }
 
         if (konkurrencesvømmer) {
@@ -230,9 +232,9 @@ public class UserInterface {
 
         System.out.println("Er medlemmet studerende? J/N");
         boolean studerende = true;
-        if (input.nextLine().equalsIgnoreCase("aktiv")) {
+        if (input.nextLine().equalsIgnoreCase("j")) {
             studerende = true;
-        } else if (input.nextLine().equalsIgnoreCase("passiv")) {
+        } else if (input.nextLine().equalsIgnoreCase("n")) {
             studerende = false;
         } else {
             System.out.println("Venligst indtast J/N");
@@ -248,9 +250,6 @@ public class UserInterface {
         System.out.println("---------------------------------");
     }
 
-    public void navn(){
-
-    }
 
     public void redigerMedlem() {
         for (int i = 0; i < controller.getMedlemmer().size(); i++) {
@@ -304,7 +303,7 @@ public class UserInterface {
 
     public void sletMedlem() {
         for (int i = 0; i < controller.getMedlemmer().size(); i++) {
-            System.out.println(i + 1 + ":" + controller.getMedlemmer().get(i));
+            System.out.println(i + 1 + ":" + controller.getMedlemmer().get(i).getNavn());
         }
 
         System.out.println("indtast nummer på medlem der skal slettes:");
@@ -313,7 +312,7 @@ public class UserInterface {
 
         // TODO: Lav en deleteMedlem metode i controller i stedet
         Medlem sletMedlem = controller.getMedlemmer().remove(nr - 1); // index starter fra 0
-        System.out.println("Medlem " + sletMedlem + " er slettet fra systemet");
+        System.out.println("Medlem " + sletMedlem.getNavn() + " er slettet fra systemet");
 
     }
 
