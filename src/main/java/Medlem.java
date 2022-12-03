@@ -44,10 +44,15 @@ public class Medlem {
 
     }
 
-    public Medlem(String navn, String efternavn, int alder) {
+    public Medlem(String navn, String efternavn, int alder, String køn,boolean aktivitetsForm, boolean konkurrenceSvømmer, boolean studerende, int medlemsNummer) {
         this.navn = navn;
         this.efternavn = efternavn;
         this.alder = alder;
+        this.køn = køn;
+        this.aktivitetsForm = aktivitetsForm;
+        this.konkurrenceSvømmer = konkurrenceSvømmer;
+        this.studerende = studerende;
+        this.medlemsNummer = medlemsNummer;
     }
 
     public String getNavn() {

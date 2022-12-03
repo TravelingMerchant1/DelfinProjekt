@@ -250,20 +250,21 @@ public class UserInterface {
         System.out.println("---------------------------------");
         udskrivMedlem(medlem);
         System.out.println("---------------------------------");
+        controller.gemData();
     }
 
 
     public void redigerMedlem() {
-        for (int i = 0; i < controller.getMedlemmer().size(); i++) {
-            System.out.println(i + 1 + ":" + controller.getMedlemmer().get(i));
+        for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer()+ ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
         }
 
         System.out.println("indtast nummer på medlem der skal redigeres:");
         int nr = input.nextInt();
         input.nextLine();
 
-        Medlem editMedlem = controller.getMedlemmer().get(nr - 1); // index starter fra 0
-        System.out.println("Edit medlem: " + editMedlem);
+        Medlem editMedlem = controller.indlæsMedlemmer().get(nr - 1); // index starter fra 0
+        System.out.println("Edit medlem: " + navnMedStort(editMedlem));
 
         System.out.println("Rediger data og tryk ENTER. Hvis data ikke skal redigeres tryk ENTER");
 
@@ -304,17 +305,16 @@ public class UserInterface {
     }
 
     public void sletMedlem() {
-        for (int i = 0; i < controller.getMedlemmer().size(); i++) {
-            System.out.println(i + 1 + ":" + controller.getMedlemmer().get(i).getNavn());
+        for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer()+ ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
         }
 
         System.out.println("indtast nummer på medlem der skal slettes:");
         int nr = input.nextInt();
         input.nextLine();
 
-        // TODO: Lav en deleteMedlem metode i controller i stedet
-        Medlem sletMedlem = controller.getMedlemmer().remove(nr - 1); // index starter fra 0
-        System.out.println("Medlem " + sletMedlem.getNavn() + " er slettet fra systemet");
+        Medlem sletMedlem = controller.indlæsMedlemmer().remove(nr - 1); // index starter fra 0
+        System.out.println("Medlem nummer"+ sletMedlem.getMedlemsNummer()+ ", Navn: " + navnMedStort(sletMedlem) + " er slettet fra systemet");
 
     }
 

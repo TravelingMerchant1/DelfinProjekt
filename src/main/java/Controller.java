@@ -32,6 +32,10 @@ public class Controller {
         }
     }
 
+    public ArrayList<Medlem> indlæsMedlemmer(){
+        return filehandler.indlæsMedlemmer();
+    }
+
     public double kontingentTotal(){
         double kontingentTotal = 0;
         for (Medlem medlem : filehandler.indlæsMedlemmer()) {

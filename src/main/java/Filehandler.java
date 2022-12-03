@@ -24,7 +24,12 @@ public class Filehandler {
             Medlem indlaestPerson = new Medlem(
                     attributter[0],
                     attributter[1],
-                    Integer.parseInt(attributter[2]));
+                    Integer.parseInt(attributter[2]),
+                    attributter[3],
+                    Boolean.parseBoolean(attributter[4]),
+                    Boolean.parseBoolean(attributter[5]),
+                    Boolean.parseBoolean(attributter[6]),
+                    Integer.parseInt(attributter[7]));
             personer.add(indlaestPerson);
         }
         sc.close();
@@ -47,7 +52,7 @@ public class Filehandler {
             output.print(medlem.isAktivitetsForm());
             output.print(";");
             output.print(medlem.isKonkurrenceSvømmer());
-            output.println(";");
+            output.print(";");
             output.print(medlem.isStuderende());
             output.print(";");
             output.print(medlem.getMedlemsNummer());
