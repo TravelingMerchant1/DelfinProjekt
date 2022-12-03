@@ -29,6 +29,7 @@ public class UserInterface {
                 trænerMenu();
                 break;
             case 9:
+                controller.sidsteMedlemsNummer();
                 closeProgram();
                 break;
         }
@@ -154,13 +155,10 @@ public class UserInterface {
     }
 
 
-    public void indmeldelse() {
+    public void indmeldelse() throws FileNotFoundException {
         String hold = null;
         String disciplin = null;
         double træningsresultat = 0;
-        System.out.println(controller.getDatabase().medlemsNummer());
-        int medlemsNummer = controller.getDatabase().medlemsNummer();
-
 
         System.out.println("Navn på medlem: ");
         String navn = input.nextLine();
@@ -213,7 +211,7 @@ public class UserInterface {
         }
 
         System.out.println("Er medlem en konkurrencesvømmer (M)otionist/(K)onkurrencesvømmer: ");
-        boolean konkurrencesvømmer = true;
+        boolean konkurrencesvømmer = false;
         if (input.nextLine().equalsIgnoreCase("m")) {
             konkurrencesvømmer = true;
         } else if (input.nextLine().equalsIgnoreCase("k")) {
@@ -242,6 +240,10 @@ public class UserInterface {
 
 
         System.out.println("Medlem er gemt i databasen");
+
+        int medlemsNummer = controller.medlemsNummer();
+        controller.nytMedlemsNummer();
+        controller.sidsteMedlemsNummer();
 
         Medlem medlem = controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer);
 
@@ -324,14 +326,27 @@ public class UserInterface {
 
     }
 
-
+//TODO : UDSKRIV AlT INFO
     private void udskrivMedlem(Medlem medlem) {
-        System.out.println("Navn: " + medlem.getNavn() + " " + medlem.getEfternavn());
+        System.out.println("Navn: " + navnMedStort(medlem));
         System.out.println("Alder: " + medlem.getAlder());
         System.out.println("Køn: " + medlem.getKøn());
         System.out.println("Aktivitetsform: " + medlem.isAktivitetsForm());
         System.out.println("Konkurrencesvømmer: " + medlem.isKonkurrenceSvømmer());
         System.out.println("Medlemsnummer : " + medlem.getMedlemsNummer());
+    }
+
+    public String navnMedStort(Medlem medlem){
+        String navnMedStort = "";
+        String førsteBogstavFornavn = medlem.getNavn().substring(0, 1).toUpperCase();
+        String fornavn = førsteBogstavFornavn + medlem.getNavn().substring(1);
+
+        String førsteBogstavEfternavn = medlem.getEfternavn().substring(0, 1).toUpperCase();
+        String efternavn = førsteBogstavEfternavn + medlem.getEfternavn().substring(1);
+
+        navnMedStort = fornavn + " " + efternavn;
+
+        return navnMedStort;
     }
 
     public void kontigentOversigt() {

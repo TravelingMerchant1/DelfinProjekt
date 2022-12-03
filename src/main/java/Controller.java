@@ -51,6 +51,18 @@ public class Controller {
         }
         return kontingentTotal;
     }
+
+    public int medlemsNummer(){
+        return database.medlemsNummer();
+    }
+
+    public void nytMedlemsNummer(){
+       database.nytMedlemsNummer();
+    }
+
+    public void sidsteMedlemsNummer(){
+        database.sidsteMedlemsNummer();
+    }
     public Database getDatabase() {
         return database;
     }
@@ -79,19 +91,16 @@ public class Controller {
     }
 
     public void aldersOversigt(){
-        int junior=0;
         int totalJunior=0;
-        int mellemAlder=0;
         int totalMellemAlder=0;
-        int senior=0;
         int totalSenior=0;
         for (Medlem medlem : filehandler.indlæsMedlemmer()){
             if (medlem.getAlder()<18){
-                totalJunior =junior + 1;
+                totalJunior =totalJunior + 1;
             } else if (18<=medlem.getAlder() && medlem.getAlder()<=60){
-                totalMellemAlder = mellemAlder + 1;
+                totalMellemAlder = totalMellemAlder + 1;
             } else {
-                totalSenior =senior + 1;
+                totalSenior = totalSenior + 1;
             }
         }
 
