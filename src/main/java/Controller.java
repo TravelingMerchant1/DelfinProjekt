@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Controller {
 
@@ -114,6 +115,11 @@ public class Controller {
                 "\nOver 60 : " + totalSenior);
 
     }
+    public void sortTræningsresultat(){
+        ArrayList<Medlem> sortedList = database.getMedlemmer();
+        Collections.sort(sortedList, new TræningsresultaterComparator());
+        System.out.println("Medlemmere sorteringer efter træningsresultat \n"+ sortedList);
 
+    }
 
 }

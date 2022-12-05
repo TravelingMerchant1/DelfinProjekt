@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -104,9 +105,9 @@ public class UserInterface {
         System.out.println("Træner Menu:");
         System.out.println("1) Oversigt Over Hold.");
         System.out.println("2) Oversigt Over Aldersgrupper.");
-        System.out.println("3) Træningsresultater.");
-        System.out.println("4) Oversigt Til Udtagelse.");
-        System.out.println("9) Tilbage Til Hovedmenu");
+        for (String s : Arrays.asList("3) Oversigt over Træningsresultater.", "4) Oversigt Til Udtagelse.", "9) Tilbage Til Hovedmenu")) {
+            System.out.println(s);
+        }
         trænerMenuInput();
     }
 
@@ -118,6 +119,7 @@ public class UserInterface {
             case 2:
                 break;
             case 3:
+                sortTræningsresultat();
                 break;
             case 9:
                 startMenu();
@@ -142,6 +144,10 @@ public class UserInterface {
 
     public void aldersOversigt() {
         controller.aldersOversigt();
+    }
+
+    public void sortTræningsresultat() {
+        controller.sortTræningsresultat();
     }
 
     public void gemData() throws FileNotFoundException {

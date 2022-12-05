@@ -119,8 +119,7 @@ public class Medlem {
     public void setDisciplin(String disciplin) {
         this.disciplin = disciplin;
     }
-
-    public double getTræningsresultat() {
+    public double getTræningsresultat(){
         return træningsresultat;
     }
 
@@ -152,7 +151,4 @@ public class Medlem {
         this.restance = restance;
     }
 
-    public double getTræningsresultater() {
-        return træningsresultat;
-    }
 }
