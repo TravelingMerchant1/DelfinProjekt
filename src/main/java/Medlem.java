@@ -151,4 +151,8 @@ public class Medlem {
     public void setRestance(boolean restance) {
         this.restance = restance;
     }
+
+    public double getTræningsresultater() {
+        return træningsresultat;
+    }
 }
