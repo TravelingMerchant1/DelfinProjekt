@@ -29,7 +29,6 @@ public class UserInterface {
                 trænerMenu();
                 break;
             case 9:
-                controller.sidsteMedlemsNummer();
                 closeProgram();
                 break;
         }
