@@ -11,8 +11,9 @@ public class Medlem {
     private double træningsresultat;
     private boolean studerende;
     private int medlemsNummer;
+    private boolean restance;
 
-    public Medlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer) {
+    public Medlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer, boolean restance) {
         this.navn = navn;
         this.efternavn = efternavn;
         this.alder = alder;
@@ -24,7 +25,7 @@ public class Medlem {
         this.træningsresultat = træningsresultat;
         this.studerende = studerende;
         this.medlemsNummer = medlemsNummer;
-
+        this.restance = restance;
     }
     public Medlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, String hold, String disciplin, double træningsresultat, boolean studerende) {
         this.navn = navn;
@@ -143,5 +144,11 @@ public class Medlem {
         this.studerende = studerende;
     }
 
+    public boolean isRestance() {
+        return restance;
+    }
 
+    public void setRestance(boolean restance) {
+        this.restance = restance;
+    }
 }

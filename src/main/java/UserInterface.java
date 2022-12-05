@@ -74,8 +74,8 @@ public class UserInterface {
         System.out.println("Kasser Menu:");
         System.out.println("1) Kontingent Brutto Total.");
         System.out.println("2) Kontingent Per Person.");
-        System.out.println("3) Restance Oversigt.");
-        System.out.println("4) Rediger Medlems Restance.");
+        System.out.println("3) Rediger Medlems Restance.");
+        System.out.println("4) Restance Oversigt.");
         System.out.println("9) Tilbage Til Hovedmenu");
         kasserMenuInput();
     }
@@ -90,10 +90,10 @@ public class UserInterface {
                 kontigentOversigt();
                 break;
             case 3:
-
+                restance();
                 break;
-                case 4:
-
+            case 4:
+                restanceOverblik();
                 break;
             case 9:
                 startMenu();
@@ -175,17 +175,17 @@ public class UserInterface {
                 input.next();
             }
             alder = input.nextInt();
-        } while (alder < 0 || alder >120);
+        } while (alder < 0 || alder > 120);
 
 
         System.out.println("Køn på medlem");
         boolean korrektInput = false;
         Scanner scanner = new Scanner(System.in);
         String køn = "";
-        while(!korrektInput) {
+        while (!korrektInput) {
             System.out.println("Indtast venligst M eller K");
             køn = scanner.nextLine().toLowerCase();
-            switch (køn){
+            switch (køn) {
                 case "m":
                     køn = "mand";
                     korrektInput = true;
@@ -245,7 +245,8 @@ public class UserInterface {
         controller.nytMedlemsNummer();
         controller.sidsteMedlemsNummer();
 
-        Medlem medlem = controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer);
+        boolean restance = false;
+        Medlem medlem = controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer, restance);
 
         System.out.println("---------------------------------");
         udskrivMedlem(medlem);
@@ -256,7 +257,7 @@ public class UserInterface {
 
     public void redigerMedlem() {
         for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
-            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer()+ ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
         }
 
         System.out.println("indtast nummer på medlem der skal redigeres:");
@@ -306,7 +307,7 @@ public class UserInterface {
 
     public void sletMedlem() {
         for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
-            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer()+ ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
         }
 
         System.out.println("indtast nummer på medlem der skal slettes:");
@@ -314,7 +315,7 @@ public class UserInterface {
         input.nextLine();
 
         Medlem sletMedlem = controller.indlæsMedlemmer().remove(nr - 1); // index starter fra 0
-        System.out.println("Medlem nummer"+ sletMedlem.getMedlemsNummer()+ ", Navn: " + navnMedStort(sletMedlem) + " er slettet fra systemet");
+        System.out.println("Medlem nummer" + sletMedlem.getMedlemsNummer() + ", Navn: " + navnMedStort(sletMedlem) + " er slettet fra systemet");
 
     }
 
@@ -326,7 +327,7 @@ public class UserInterface {
 
     }
 
-//TODO : UDSKRIV AlT INFO
+    //TODO : UDSKRIV AlT INFO
     private void udskrivMedlem(Medlem medlem) {
         System.out.println("Navn: " + navnMedStort(medlem));
         System.out.println("Alder: " + medlem.getAlder());
@@ -336,7 +337,7 @@ public class UserInterface {
         System.out.println("Medlemsnummer : " + medlem.getMedlemsNummer());
     }
 
-    public String navnMedStort(Medlem medlem){
+    public String navnMedStort(Medlem medlem) {
         String navnMedStort = "";
         String førsteBogstavFornavn = medlem.getNavn().substring(0, 1).toUpperCase();
         String fornavn = førsteBogstavFornavn + medlem.getNavn().substring(1);
@@ -357,6 +358,38 @@ public class UserInterface {
         System.out.println("Den totale bruttoindkomst er: " + controller.kontingentTotal() + " kr.");
     }
 
+    public void restance() throws FileNotFoundException {
+        for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
 
+        }
+
+        System.out.println("indtast nummer på medlem der skal flyttes til restance:");
+        int nr = input.nextInt();
+        input.nextLine();
+
+        Medlem restanceMedlem = controller.indlæsMedlemmer().get(nr - 1); // index starter fra 0
+        System.out.println("Flyt medlem: " + navnMedStort(restanceMedlem));
+
+        System.out.println("Restance: " + restanceMedlem.isRestance());
+        String nyRestanceMedlem = input.nextLine();
+        if (!nyRestanceMedlem.isEmpty()) {
+            restanceMedlem.setRestance(Boolean.parseBoolean(nyRestanceMedlem));
+        }
+        if (restanceMedlem.isRestance()) {
+            System.out.println("Medlem" + restanceMedlem.getNavn() + " " + restanceMedlem.getEfternavn() + " er nu i restance ");
+        } else if (!restanceMedlem.isRestance()) {
+            System.out.println("Medlem" + restanceMedlem.getNavn() + " " + restanceMedlem.getEfternavn() + " er nu ikke længere i restance");
+        }
+    }
+
+    public void restanceOverblik() {
+        System.out.println(controller.getFilehandler().indlæsMedlemmer());
+        for (Medlem medlem : controller.getFilehandler().indlæsMedlemmer()) {
+            System.out.println(medlem.getNavn() + " " + medlem.getEfternavn() + ": " + medlem.isRestance());
+        }
+    }
 }
+
+
 
