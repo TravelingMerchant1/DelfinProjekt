@@ -159,6 +159,7 @@ public class UserInterface {
         String hold = null;
         String disciplin = null;
         double træningsresultat = 0;
+        boolean restance = false;
 
         System.out.println("Navn på medlem: ");
         String navn = input.nextLine();
@@ -245,7 +246,7 @@ public class UserInterface {
         controller.nytMedlemsNummer();
         controller.sidsteMedlemsNummer();
 
-        boolean restance = false;
+
         Medlem medlem = controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer, restance);
 
         System.out.println("---------------------------------");
@@ -377,9 +378,9 @@ public class UserInterface {
             restanceMedlem.setRestance(Boolean.parseBoolean(nyRestanceMedlem));
         }
         if (restanceMedlem.isRestance()) {
-            System.out.println("Medlem" + restanceMedlem.getNavn() + " " + restanceMedlem.getEfternavn() + " er nu i restance ");
+            System.out.println("Medlem: " + restanceMedlem.getNavn() + " " + restanceMedlem.getEfternavn() + " er nu i restance ");
         } else if (!restanceMedlem.isRestance()) {
-            System.out.println("Medlem" + restanceMedlem.getNavn() + " " + restanceMedlem.getEfternavn() + " er nu ikke længere i restance");
+            System.out.println("Medlem: " + restanceMedlem.getNavn() + " " + restanceMedlem.getEfternavn() + " er nu ikke længere i restance");
         }
     }
 
