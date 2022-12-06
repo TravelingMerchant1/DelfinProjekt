@@ -1,5 +1,8 @@
+package UI;
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import Datahandler.*;
 
 public class UserInterface {
     private int menuvalg;
@@ -37,10 +40,10 @@ public class UserInterface {
 
     public void formandMenu() throws FileNotFoundException {
         System.out.println("Formands Menu:");
-        System.out.println("1) Indemeldelse Af Nyt Medlem.");
-        System.out.println("2) Redigerine Af Medlem.");
-        System.out.println("3) Slet Medlem.");
-        System.out.println("4) Oversigt Over Medlem.");
+        System.out.println("1) Indemeldelse Af Nyt medlem.");
+        System.out.println("2) Redigerine Af medlem.");
+        System.out.println("3) Slet medlem.");
+        System.out.println("4) Oversigt Over medlemmer.");
         System.out.println("5) Oversigt Over Aldersgrupper.");
         System.out.println("9) Tilbage Til Hovedmenu");
         formandMenuInput();
@@ -248,7 +251,7 @@ public class UserInterface {
         }
 
 
-        System.out.println("Medlem er gemt i databasen");
+        System.out.println(navn + " er gemt i databasen");
 
         int medlemsNummer = controller.medlemsNummer();
         controller.nytMedlemsNummer();

@@ -1,3 +1,7 @@
+package Hold;
+
+import Datahandler.Medlem;
+
 import java.util.Comparator;
 
 public class HoldComparator implements Comparator<Medlem> {

@@ -1,3 +1,5 @@
+package Hold;
+
 enum SvømmeDisciplin {
 
 

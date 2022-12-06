@@ -1,3 +1,5 @@
+package Datahandler;
+
 public class Medlem {
 
     private String navn;

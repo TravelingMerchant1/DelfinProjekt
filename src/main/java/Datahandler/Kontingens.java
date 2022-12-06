@@ -1,3 +1,5 @@
+package Datahandler;
+
 public class Kontingens {
 
     public Kontingens(){

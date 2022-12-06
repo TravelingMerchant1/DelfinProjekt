@@ -1,6 +1,8 @@
-import java.io.*;
+package UI;
+import Datahandler.*;
+
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Controller {
 
@@ -54,8 +56,8 @@ public class Controller {
     }
 
 //    public void sorteretMedlemmer() {
-//        Collections.sort(database.getMedlemmers(), new HoldComparator().thenComparing(new DisciplinComparator().thenComparing(new TræningsresultaterComparator())));
-//        for (Medlem sorteretMedlemmer : database.getMedlemmers()) {
+//        Collections.sort(database.getMedlemmers(), new Hold.HoldComparator().thenComparing(new Hold.DisciplinComparator().thenComparing(new Hold.TræningsresultaterComparator())));
+//        for (Datahandler.Medlem sorteretMedlemmer : database.getMedlemmers()) {
 //            System.out.println(sorteretMedlemmer);
 //        }
 //    }
