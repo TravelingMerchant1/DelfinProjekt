@@ -7,9 +7,12 @@ public class Filehandler {
     private File medlemmerFil = new File("data/medlemmer.csv");
 
 
-
-
     public void gemMedlemmer(ArrayList<Medlem> dataSaver) {
+                    try {
+                medlemmerFil.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         PrintWriter output = null;
         try {
             output = new PrintWriter(new FileWriter(medlemmerFil, true));

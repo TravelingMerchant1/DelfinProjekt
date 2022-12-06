@@ -139,6 +139,11 @@ public class Database {
 
 
     public int medlemsNummer() {
+            try {
+                medlemsNummerFil.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         int midlertigtMedlemsNummer=0;
         Scanner scanner;
         try {

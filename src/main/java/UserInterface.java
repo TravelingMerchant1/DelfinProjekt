@@ -128,7 +128,6 @@ public class UserInterface {
 
     public void closeProgram() throws FileNotFoundException {
         System.out.println("Du aflsutter nu programmet");
-        gemData();
         System.exit(0);
     }
 
