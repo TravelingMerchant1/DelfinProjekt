@@ -15,6 +15,26 @@ public class Database {
 
     }
 
+    public void aldersOversigt(){
+        int totalJunior=0;
+        int totalMellemAlder=0;
+        int totalSenior=0;
+        for (Medlem medlem : indlæsMedlemmer()){
+            if (medlem.getAlder()<18){
+                totalJunior =totalJunior + 1;
+            } else if (18<=medlem.getAlder() && medlem.getAlder()<=60){
+                totalMellemAlder = totalMellemAlder + 1;
+            } else {
+                totalSenior = totalSenior + 1;
+            }
+        }
+
+        System.out.println("Der er følgende mængde folk i aldersgrupperne:" +
+                "\nUnder 18 : " + totalJunior+
+                "\nFra 18 til 60: " + totalMellemAlder +
+                "\nOver 60 : " + totalSenior);
+    }
+
 
     public void sletMedlem(int input){
         ArrayList<String> tempMedlemListe = new ArrayList<>();
