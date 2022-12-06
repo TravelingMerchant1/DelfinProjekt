@@ -355,7 +355,5 @@ public class UserInterface {
     public void kontingentTotal() {
         System.out.println("Den totale bruttoindkomst er: " + controller.kontingentTotal() + " kr.");
     }
-
-
 }
 
