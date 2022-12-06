@@ -27,7 +27,7 @@ public class Medlem {
         this.medlemsNummer = medlemsNummer;
         this.restance = restance;
     }
-    public Medlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, String hold, String disciplin, double træningsresultat, boolean studerende) {
+    public Medlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer) {
         this.navn = navn;
         this.efternavn = efternavn;
         this.alder = alder;
@@ -38,6 +38,7 @@ public class Medlem {
         this.disciplin = disciplin;
         this.træningsresultat = træningsresultat;
         this.studerende = studerende;
+        this.medlemsNummer = medlemsNummer;
 
     }
 

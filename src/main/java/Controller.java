@@ -1,5 +1,6 @@
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Controller {
 
@@ -11,7 +12,7 @@ public class Controller {
     }
 
     public void kontingentOversigt() {
-        for (Medlem medlem : filehandler.indlæsMedlemmer()) {
+        for (Medlem medlem : database.indlæsMedlemmer()) {
             if (medlem.getAlder() < 18) {
                 int kontigentUng;
                 kontigentUng = 1000;
@@ -33,12 +34,21 @@ public class Controller {
     }
 
     public ArrayList<Medlem> indlæsMedlemmer(){
-        return filehandler.indlæsMedlemmer();
+        return database.indlæsMedlemmer();
     }
+
+    public void sletMedlem(int input){
+        database.sletMedlem(input);
+    }
+
+    public void redigerMedlem(int input, String navn, String efternavn, String alder, String køn, String aktivitetsform, String konkurrencesvømmer){
+        database.redigerMedlem(input, navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer);
+    }
+
 
     public double kontingentTotal(){
         double kontingentTotal = 0;
-        for (Medlem medlem : filehandler.indlæsMedlemmer()) {
+        for (Medlem medlem : database.indlæsMedlemmer()) {
             double kontingent = 0;
             if (medlem.getAlder() < 18) {
                 kontingent = 1000;
@@ -46,9 +56,9 @@ public class Controller {
                 kontingent = 1600;
             } else if (medlem.getAlder() > 60) {
                 kontingent = 1600 * (1 - 0.25);
-            } else if (medlem.isAktivitetsForm() == true) {
+            } else if (medlem.isAktivitetsForm()) {
                 kontingent= 500;
-            } else if (medlem.isStuderende() == true) {
+            } else if (medlem.isStuderende()) {
                 kontingent = 1600 * (1 - 0.15);
             }
             kontingentTotal = kontingent + kontingentTotal;
@@ -61,7 +71,7 @@ public class Controller {
     }
 
     public void nytMedlemsNummer(){
-       database.nytMedlemsNummer();
+        database.nytMedlemsNummer();
     }
 
     public void sidsteMedlemsNummer(){
@@ -81,24 +91,30 @@ public class Controller {
 //        }
 //    }
 
-    public Medlem nyMedlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsform, boolean konkurrencesvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer, boolean restance){
-        return database.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer, restance);
+    public Medlem nyMedlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsform, boolean konkurrencesvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer){
+        return database.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer);
     }
 
     public ArrayList<Medlem> getMedlemmer() {
         return database.getMedlemmer();
     }
 
-    public void gemData() throws FileNotFoundException {
-    database.getMedlemmer();
-    filehandler.gemMedlemmer(getMedlemmer());
+    public void setMedlemmer(ArrayList<Medlem> medlemmer) {
+        this.database.setMedlemmer(medlemmer);
     }
+
+    public void gemData() {
+        database.getMedlemmer();
+        filehandler.gemMedlemmer(getMedlemmer());
+    }
+
+
 
     public void aldersOversigt(){
         int totalJunior=0;
         int totalMellemAlder=0;
         int totalSenior=0;
-        for (Medlem medlem : filehandler.indlæsMedlemmer()){
+        for (Medlem medlem : database.indlæsMedlemmer()){
             if (medlem.getAlder()<18){
                 totalJunior =totalJunior + 1;
             } else if (18<=medlem.getAlder() && medlem.getAlder()<=60){
