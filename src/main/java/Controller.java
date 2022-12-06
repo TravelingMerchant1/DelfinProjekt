@@ -6,14 +6,15 @@ public class Controller {
 
 
     private Database database = new Database();
-    private Filehandler filehandler;
+    private Filehandler filehandler = new Filehandler();;
     private Kontingens kontingens = new Kontingens();
-    {
-        filehandler = new Filehandler();
-    }
 
     public void kontingentOversigt(){
         kontingens.kontingentOversigt(database);
+    }
+
+    public void aldersOversigt(){
+        database.aldersOversigt();
     }
 
 
@@ -78,9 +79,6 @@ public class Controller {
 
 
 
-    public void aldersOversigt(){
-       database.aldersOversigt();
-    }
 
 
 }

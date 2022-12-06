@@ -156,6 +156,7 @@ public class UserInterface {
     public void indmeldelse() throws FileNotFoundException {
         String hold = null;
         String disciplin = null;
+        boolean korrektInput = false;
         double træningsresultat = 0;
 
         System.out.println("Navn på medlem: ");
@@ -177,12 +178,11 @@ public class UserInterface {
 
 
         System.out.println("Køn på medlem");
-        boolean korrektInput = false;
-        Scanner scanner = new Scanner(System.in);
-        String køn = "";
-        while(!korrektInput) {
+        String køn;
+        //Scanner scanner = new Scanner(System.in);
+        do {
             System.out.println("Indtast venligst M eller K");
-            køn = scanner.nextLine().toLowerCase();
+            køn = input.next().toLowerCase();
             switch (køn){
                 case "m":
                     køn = "mand";
@@ -194,25 +194,36 @@ public class UserInterface {
                     break;
                 default:
                     System.out.println("Fejl I Indtastning");
+                    break;
             }
-        }
+        }while(!korrektInput);
 
 
         System.out.println("aktivitetsform på medlem (A)ktiv/(P)assiv: ");
-        boolean aktivitetsform = true;
-        if (input.nextLine().equalsIgnoreCase("a")) {
-            aktivitetsform = true;
-        } else if (input.nextLine().equalsIgnoreCase("p")) {
-            aktivitetsform = false;
-        } else if (!input.nextLine().equalsIgnoreCase("aktiv") || !input.nextLine().equalsIgnoreCase("passiv")) {
-            System.out.println("Venligst indtast Aktiv/Passiv");
-        }
+        boolean aktivitetsForm = true;
+        do {
+            String aktivitetsFormString = input.next().toLowerCase();
+            korrektInput=false;
+            switch (aktivitetsFormString){
+                case "a":
+                    aktivitetsForm=true;
+                    korrektInput=true;
+                    break;
+                case "p":
+                    aktivitetsForm=false;
+                    korrektInput=true;
+                    break;
+                default:
+                    System.out.println("Fejl i indtastning");
+                    break;
+            }
+        }while (!korrektInput);
 
         System.out.println("Er medlem en konkurrencesvømmer (M)otionist/(K)onkurrencesvømmer: ");
         boolean konkurrencesvømmer = false;
-        if (input.nextLine().equalsIgnoreCase("m")) {
+        if (input.nextLine().equalsIgnoreCase("k")) {
             konkurrencesvømmer = true;
-        } else if (input.nextLine().equalsIgnoreCase("k")) {
+        } else if (input.nextLine().equalsIgnoreCase("m")) {
             konkurrencesvømmer = false;
         } else {
             System.out.println("Venligst indtast M/K");
@@ -243,7 +254,7 @@ public class UserInterface {
         controller.nytMedlemsNummer();
         controller.sidsteMedlemsNummer();
 
-        Medlem medlem = controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer);
+        Medlem medlem = controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsForm, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer);
 
         System.out.println("---------------------------------");
         udskrivMedlem(medlem);
