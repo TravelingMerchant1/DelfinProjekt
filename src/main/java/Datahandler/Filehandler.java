@@ -6,7 +6,8 @@ import java.util.ArrayList;
 public class Filehandler {
 
     private File medlemmerFil = new File("data/medlemmer.csv");
-    private File restanceFil = new File("data/restance.csv");
+    private File medlemmerIkkeIRestance = new File("data/medlemmerIkkeIRestance.csv");
+
 
 
     public void gemMedlemmer(ArrayList<Medlem> dataSaver) {
@@ -18,6 +19,24 @@ public class Filehandler {
         PrintWriter output = null;
         try {
             output = new PrintWriter(new FileWriter(medlemmerFil, true));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        for (Medlem medlem : dataSaver) {
+            dataWriting(output, medlem);
+        }
+        output.close();
+    }
+
+    public void gemMedlemIRestance(ArrayList<Medlem> dataSaver) {
+        try {
+            medlemmerIkkeIRestance.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        PrintWriter output = null;
+        try {
+            output = new PrintWriter(new FileWriter(medlemmerIkkeIRestance, true));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -61,7 +80,7 @@ public class Filehandler {
         output.print(medlem.isStuderende());
         output.print(";");
         output.print(medlem.getMedlemsNummer());
-        output.println(";");
+        output.print(";");
         output.print(medlem.isRestance());
         output.println();
     }

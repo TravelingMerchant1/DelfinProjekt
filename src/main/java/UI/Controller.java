@@ -32,6 +32,26 @@ public class Controller {
         database.redigerMedlem(input, navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer);
     }
 
+    public void restanceFil(){
+        database.restanceFil();
+    }
+
+    public ArrayList<Medlem> indlæsIRestance(){
+        return database.indlæsRestance();
+    }
+
+    public ArrayList<Medlem> indlæsIkkeIRestance(){
+        return database.indlæsIkkeIRestance();
+    }
+
+    public void tagUdAfRestance(int input){
+        database.tageUdAfRestance(input);
+    }
+
+    public void sætIRestance(int input){
+        database.sætIRestance(input);
+    }
+
     public double kontingentTotal(){
         return kontingens.kontingentTotal(database);
     }
@@ -76,6 +96,7 @@ public class Controller {
     public void gemData() {
         database.getMedlemmer();
         filehandler.gemMedlemmer(getMedlemmer());
+        filehandler.gemMedlemIRestance(getMedlemmer());
     }
 
     public void gemRestance() {

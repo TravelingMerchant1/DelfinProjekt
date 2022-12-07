@@ -1,7 +1,6 @@
 package UI;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import Datahandler.*;
@@ -78,8 +77,9 @@ public class UserInterface {
         System.out.println("Kasser Menu:");
         System.out.println("1) Kontingent Brutto Total.");
         System.out.println("2) Kontingent Per Person.");
-        System.out.println("3) Rediger Medlems Restance.");
-        System.out.println("4) Restance Oversigt.");
+        System.out.println("3) Sæt Medlem I Restance.");
+        System.out.println("4) Tag Medlem I Restance.");
+        System.out.println("5) Restance Oversigt.");
         System.out.println("9) Tilbage Til Hovedmenu");
         kasserMenuInput();
     }
@@ -94,9 +94,14 @@ public class UserInterface {
                 kontigentOversigt();
                 break;
             case 3:
-                restance();
+                controller.restanceFil();
+                sætIRestance();
                 break;
             case 4:
+                controller.restanceFil();
+                tagUdAfRestance();
+                break;
+            case 5:
                 restanceOverblik();
                 break;
             case 9:
@@ -358,37 +363,37 @@ public class UserInterface {
         System.out.println("Den totale bruttoindkomst er: " + controller.kontingentTotal() + " kr.");
     }
 
-    public void restance() throws FileNotFoundException {
-        for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
-            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
-
+    public void sætIRestance() {
+        for (int i = 0; i < controller.indlæsIkkeIRestance().size(); i++) {
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsIkkeIRestance().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsIkkeIRestance().get(i)));
         }
 
         System.out.println("indtast nummer på medlem der skal flyttes til restance:");
         int nr = input.nextInt();
         input.nextLine();
+        System.out.println("Medlem: " + navnMedStort(controller.indlæsIkkeIRestance().get(nr)) + " sat i af restance.");
+        controller.sætIRestance(nr);
 
-        Medlem restanceMedlem = controller.indlæsMedlemmer().get(nr - 1); // index starter fra 0
-        System.out.println("Flyt medlem: " + navnMedStort(restanceMedlem));
 
-        System.out.println("Menneske: " + restanceMedlem.isRestance());
-        String nyRestance = input.nextLine();
-        if (!nyRestance.isEmpty()) {
-            restanceMedlem.setRestance(Boolean.parseBoolean(nyRestance));
+    }
+
+    public void tagUdAfRestance(){
+        for (int i = 0; i < controller.indlæsIRestance().size(); i++) {
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsIRestance().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsIRestance().get(i)));
         }
 
-        if (restanceMedlem.isRestance()) {
-            System.out.println("Medlem: " + restanceMedlem.getNavn() + " " + restanceMedlem.getEfternavn() + " er nu i restance ");
-        } else if (!restanceMedlem.isRestance()) {
-            System.out.println("Medlem: " + restanceMedlem.getNavn() + " " + restanceMedlem.getEfternavn() + " er nu ikke længere i restance");
-        }
+        System.out.println("indtast nummer på medlem der skal flyttes til restance:");
+        int nr = input.nextInt();
+        input.nextLine();
+        System.out.println("Medlem: " + navnMedStort(controller.indlæsIRestance().get(nr)) + " tager ud af restance.");
+        controller.tagUdAfRestance(nr);
+
 
     }
 
 
     public void restanceOverblik() {
-        for (Medlem medlem : controller.indlæsMedlemmer()) {
-            if (medlem.isRestance() == true)
+        for (Medlem medlem : controller.indlæsIRestance()) {
                 System.out.println(medlem.getNavn() + " " + medlem.getEfternavn() + ": " + medlem.isRestance());
         }
     }
