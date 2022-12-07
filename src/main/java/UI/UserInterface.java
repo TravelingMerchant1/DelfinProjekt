@@ -1,7 +1,9 @@
 package UI;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
+
 import Datahandler.*;
 
 public class UserInterface {
@@ -76,8 +78,8 @@ public class UserInterface {
         System.out.println("Kasser Menu:");
         System.out.println("1) Kontingent Brutto Total.");
         System.out.println("2) Kontingent Per Person.");
-        System.out.println("3) Restance Oversigt.");
-        System.out.println("4) Rediger Medlems Restance.");
+        System.out.println("3) Rediger Medlems Restance.");
+        System.out.println("4) Restance Oversigt.");
         System.out.println("9) Tilbage Til Hovedmenu");
         kasserMenuInput();
     }
@@ -92,10 +94,10 @@ public class UserInterface {
                 kontigentOversigt();
                 break;
             case 3:
-
+                restance();
                 break;
             case 4:
-
+                restanceOverblik();
                 break;
             case 9:
                 startMenu();
@@ -177,7 +179,7 @@ public class UserInterface {
                 input.next();
             }
             alder = input.nextInt();
-        } while (alder < 0 || alder >120);
+        } while (alder < 0 || alder > 120);
 
 
         System.out.println("Køn på medlem");
@@ -186,7 +188,7 @@ public class UserInterface {
         do {
             System.out.println("Indtast venligst M eller K");
             køn = input.next().toLowerCase();
-            switch (køn){
+            switch (køn) {
                 case "m":
                     køn = "mand";
                     korrektInput = true;
@@ -199,28 +201,28 @@ public class UserInterface {
                     System.out.println("Fejl I Indtastning");
                     break;
             }
-        }while(!korrektInput);
+        } while (!korrektInput);
 
 
         System.out.println("aktivitetsform på medlem (A)ktiv/(P)assiv: ");
         boolean aktivitetsForm = true;
         do {
             String aktivitetsFormString = input.next().toLowerCase();
-            korrektInput=false;
-            switch (aktivitetsFormString){
+            korrektInput = false;
+            switch (aktivitetsFormString) {
                 case "a":
-                    aktivitetsForm=true;
-                    korrektInput=true;
+                    aktivitetsForm = true;
+                    korrektInput = true;
                     break;
                 case "p":
-                    aktivitetsForm=false;
-                    korrektInput=true;
+                    aktivitetsForm = false;
+                    korrektInput = true;
                     break;
                 default:
                     System.out.println("Fejl i indtastning");
                     break;
             }
-        }while (!korrektInput);
+        } while (!korrektInput);
 
         System.out.println("Er medlem en konkurrencesvømmer (M)otionist/(K)onkurrencesvømmer: ");
         boolean konkurrencesvømmer = false;
@@ -268,7 +270,7 @@ public class UserInterface {
 
     public void redigerMedlem(Scanner input) {
         for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
-            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer()+ ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
         }
 
         System.out.println("indtast nummer på medlem der skal redigeres:");
@@ -308,12 +310,12 @@ public class UserInterface {
 
     public void sletMedlem(Scanner input) {
         for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
-            System.out.println(i + 1+ ")" + "Medlems nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer()+ ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
+            System.out.println(i + 1 + ")" + "Medlems nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
         }
         System.out.println("indtast nummer på medlem der skal slettes:");
         int nr = input.nextInt();
         input.nextLine();
-        System.out.println("Medlem "+ nr + ", Navn: " + navnMedStort(controller.indlæsMedlemmer().get(nr)) + " er slettet fra systemet");
+        System.out.println("Medlem " + nr + ", Navn: " + navnMedStort(controller.indlæsMedlemmer().get(nr)) + " er slettet fra systemet");
         controller.sletMedlem(nr);
     }
 
@@ -335,7 +337,7 @@ public class UserInterface {
         System.out.println("Medlemsnummer : " + medlem.getMedlemsNummer());
     }
 
-    public String navnMedStort(Medlem medlem){
+    public String navnMedStort(Medlem medlem) {
         String navnMedStort = "";
         String førsteBogstavFornavn = medlem.getNavn().substring(0, 1).toUpperCase();
         String fornavn = førsteBogstavFornavn + medlem.getNavn().substring(1);
@@ -355,5 +357,62 @@ public class UserInterface {
     public void kontingentTotal() {
         System.out.println("Den totale bruttoindkomst er: " + controller.kontingentTotal() + " kr.");
     }
-}
 
+    public void restance() throws FileNotFoundException {
+        for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
+
+        }
+
+        System.out.println("indtast nummer på medlem der skal flyttes til restance:");
+        int nr = input.nextInt();
+        input.nextLine();
+
+        Medlem restanceMedlem = controller.indlæsMedlemmer().get(nr - 1); // index starter fra 0
+        System.out.println("Flyt medlem: " + navnMedStort(restanceMedlem));
+
+        System.out.println("Menneske: " + restanceMedlem.isRestance());
+        String nyRestance = input.nextLine();
+        if (!nyRestance.isEmpty()) {
+            restanceMedlem.setRestance(Boolean.parseBoolean(nyRestance));
+        }
+
+        if (restanceMedlem.isRestance()) {
+            System.out.println("Medlem: " + restanceMedlem.getNavn() + " " + restanceMedlem.getEfternavn() + " er nu i restance ");
+        } else if (!restanceMedlem.isRestance()) {
+            System.out.println("Medlem: " + restanceMedlem.getNavn() + " " + restanceMedlem.getEfternavn() + " er nu ikke længere i restance");
+        }
+
+    }
+
+
+    public void restanceOverblik() {
+        for (Medlem medlem : controller.indlæsMedlemmer()) {
+            if (medlem.isRestance() == true)
+                System.out.println(medlem.getNavn() + " " + medlem.getEfternavn() + ": " + medlem.isRestance());
+        }
+    }
+
+    private void updateMedlemRestanceStatus() {
+        System.out.println("Hvad er navnet på medlemmet hvis restance status skal opdateres?");
+
+        for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
+        }
+
+        System.out.println("indtast nummer på medlem der skal flyttes til restance:");
+        int nr = input.nextInt();
+        input.nextLine();
+
+        Medlem restanceMedlem = controller.indlæsMedlemmer().get(nr - 1); // index starter fra 0
+        System.out.println("Flyt medlem: " + navnMedStort(restanceMedlem));
+        System.out.println("Skal medlemmet flyttes til restance? (ja/nej)");
+        String status = input.nextLine();
+        if (status.equalsIgnoreCase("ja")) {
+            restanceMedlem.setRestance(true);
+        } else if (status.equalsIgnoreCase("nej")) {
+            restanceMedlem.setRestance(false);
+        }
+        System.out.println("Medlemmets restance status er nu opdateret ");
+    }
+}

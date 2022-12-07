@@ -124,12 +124,7 @@ public class Database {
         }
     }
 
-
-
     static void saveData(PrintWriter output, Medlem medlem) {
-        if (medlem.isRestance() == true){
-            Filehandler.restanceWriting(output, medlem);
-        }
         Filehandler.dataWriting(output, medlem);
     }
 

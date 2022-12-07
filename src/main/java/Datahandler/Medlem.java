@@ -27,7 +27,7 @@ public class Medlem {
         this.træningsresultat = træningsresultat;
         this.studerende = studerende;
         this.medlemsNummer = medlemsNummer;
-        this.restance = restance;
+        restance = false;
     }
     public Medlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer) {
         this.navn = navn;

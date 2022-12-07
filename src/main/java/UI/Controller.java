@@ -28,10 +28,9 @@ public class Controller {
         database.sletMedlem(input);
     }
 
-    public void redigerMedlem(int input, String navn, String efternavn, String alder, String køn, String aktivitetsform, String konkurrencesvømmer){
+    public void redigerMedlem(int input, String navn, String efternavn, String alder, String køn, String aktivitetsform, String konkurrencesvømmer) {
         database.redigerMedlem(input, navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer);
     }
-
 
     public double kontingentTotal(){
         return kontingens.kontingentTotal(database);
@@ -77,6 +76,11 @@ public class Controller {
     public void gemData() {
         database.getMedlemmer();
         filehandler.gemMedlemmer(getMedlemmer());
+    }
+
+    public void gemRestance() {
+        database.getMedlemmer();
+        //filehandler.gemRestance(getMedlemmer());
     }
 
 
