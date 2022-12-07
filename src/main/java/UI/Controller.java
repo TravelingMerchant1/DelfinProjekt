@@ -15,6 +15,10 @@ public class Controller {
         kontingens.kontingentOversigt(database);
     }
 
+    public void restanceFil(){
+        database.restanceFil();
+    }
+
     public void aldersOversigt(){
         database.aldersOversigt();
     }
@@ -30,10 +34,6 @@ public class Controller {
 
     public void redigerMedlem(int input, String navn, String efternavn, String alder, String køn, String aktivitetsform, String konkurrencesvømmer) {
         database.redigerMedlem(input, navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer);
-    }
-
-    public void restanceFil(){
-        database.restanceFil();
     }
 
     public ArrayList<Medlem> indlæsIRestance(){
@@ -67,12 +67,6 @@ public class Controller {
     public void sidsteMedlemsNummer(){
         database.sidsteMedlemsNummer();
     }
-    public Database getDatabase() {
-        return database;
-    }
-    public Filehandler getFilehandler() {
-        return filehandler;
-    }
 
     public Medlem nyMedlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsform, boolean konkurrencesvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer){
         return database.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer);
@@ -81,11 +75,6 @@ public class Controller {
     public ArrayList<Medlem> getMedlemmer() {
         return database.getMedlemmer();
     }
-
-    public void setMedlemmer(ArrayList<Medlem> medlemmer) {
-        this.database.setMedlemmer(medlemmer);
-    }
-
     public void gemData() {
         database.getMedlemmer();
         filehandler.gemMedlemmer(getMedlemmer());

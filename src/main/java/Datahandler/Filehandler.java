@@ -7,9 +7,6 @@ public class Filehandler {
 
     private File medlemmerFil = new File("data/medlemmer.csv");
     private File medlemmerIkkeIRestance = new File("data/medlemmerIkkeIRestance.csv");
-
-
-
     public void gemMedlemmer(ArrayList<Medlem> dataSaver) {
                     try {
                 medlemmerFil.createNewFile();
@@ -45,8 +42,6 @@ public class Filehandler {
         }
         output.close();
     }
-
-
     static void dataWriting(PrintWriter output, Medlem medlem) {
         output.print(medlem.getNavn());
         output.print(";");

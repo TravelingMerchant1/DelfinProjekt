@@ -10,7 +10,10 @@ public class UserInterface {
     private Scanner input = new Scanner(System.in);
     private Controller controller = new Controller();
 
+    //MENUER
+
     public void startMenu() throws FileNotFoundException {
+        controller.restanceFil();
         System.out.println("Velkommen til Delfinens administrative system");
         System.out.println("Du har nu 3 valgmuligheder.");
         System.out.println("1) Formand");
@@ -134,6 +137,11 @@ public class UserInterface {
         }
     }
 
+    public void menuValgInput() {
+        menuvalg = input.nextInt();
+        input.nextLine();
+    }
+
     public void closeProgram() {
         System.out.println("Du aflsutter nu programmet");
         System.exit(0);
@@ -147,15 +155,14 @@ public class UserInterface {
         } while (run == true);
     }
 
+
+    //ALDERSOVERSIGT
     public void aldersOversigt() {
         controller.aldersOversigt();
     }
 
-    public void menuValgInput() {
-        menuvalg = input.nextInt();
-        input.nextLine();
-    }
 
+    //INDMELDELSE, REDIGERING, SLETNING
 
     public void indmeldelse() {
         String hold = null;
@@ -265,7 +272,6 @@ public class UserInterface {
         controller.gemData();
     }
 
-
     public void redigerMedlem(Scanner input) {
         for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
             System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
@@ -317,6 +323,7 @@ public class UserInterface {
         controller.sletMedlem(nr);
     }
 
+    //OVERSIGT
     public void medlemsOversigt() {
         System.out.println(controller.indlæsMedlemmer());
         for (Medlem medlem : controller.indlæsMedlemmer()) {
@@ -324,27 +331,8 @@ public class UserInterface {
         }
 
     }
-    private void udskrivMedlem(Medlem medlem) {
-        System.out.println("Navn: " + navnMedStort(medlem));
-        System.out.println("Alder: " + medlem.getAlder());
-        System.out.println("Køn: " + medlem.getKøn());
-        System.out.println("Aktivitetsform: " + medlem.isAktivitetsForm());
-        System.out.println("Konkurrencesvømmer: " + medlem.isKonkurrenceSvømmer());
-        System.out.println("Medlemsnummer : " + medlem.getMedlemsNummer());
-    }
 
-    public String navnMedStort(Medlem medlem) {
-        String navnMedStort = "";
-        String førsteBogstavFornavn = medlem.getNavn().substring(0, 1).toUpperCase();
-        String fornavn = førsteBogstavFornavn + medlem.getNavn().substring(1);
-
-        String førsteBogstavEfternavn = medlem.getEfternavn().substring(0, 1).toUpperCase();
-        String efternavn = førsteBogstavEfternavn + medlem.getEfternavn().substring(1);
-
-        navnMedStort = fornavn + " " + efternavn;
-
-        return navnMedStort;
-    }
+    //KONTINGENT
 
     public void kontigentOversigt() {
         controller.kontingentOversigt();
@@ -353,6 +341,8 @@ public class UserInterface {
     public void kontingentTotal() {
         System.out.println("Den totale bruttoindkomst er: " + controller.kontingentTotal() + " kr.");
     }
+
+    //RESTANCE
 
     public void sætIRestance() {
         for (int i = 0; i < controller.indlæsIkkeIRestance().size(); i++) {
@@ -386,5 +376,29 @@ public class UserInterface {
                 System.out.println(i + 1 + ") " + controller.indlæsIRestance().get(i).getMedlemsNummer() + " " + navnMedStort(controller.indlæsIRestance().get(i)));
         }
     }
+
+    //DIVERSE
+    private void udskrivMedlem(Medlem medlem) {
+        System.out.println("Navn: " + navnMedStort(medlem));
+        System.out.println("Alder: " + medlem.getAlder());
+        System.out.println("Køn: " + medlem.getKøn());
+        System.out.println("Aktivitetsform: " + medlem.isAktivitetsForm());
+        System.out.println("Konkurrencesvømmer: " + medlem.isKonkurrenceSvømmer());
+        System.out.println("Medlemsnummer : " + medlem.getMedlemsNummer());
+    }
+
+    public String navnMedStort(Medlem medlem) {
+        String navnMedStort = "";
+        String førsteBogstavFornavn = medlem.getNavn().substring(0, 1).toUpperCase();
+        String fornavn = førsteBogstavFornavn + medlem.getNavn().substring(1);
+
+        String førsteBogstavEfternavn = medlem.getEfternavn().substring(0, 1).toUpperCase();
+        String efternavn = førsteBogstavEfternavn + medlem.getEfternavn().substring(1);
+
+        navnMedStort = fornavn + " " + efternavn;
+
+        return navnMedStort;
+    }
+
 
 }

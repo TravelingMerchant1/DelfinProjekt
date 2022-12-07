@@ -11,13 +11,11 @@ public class Database {
     private File medlemmerIRestance = new File("data/medlemmerIRestance.csv");
     private File medlemmerIkkeIRestance = new File("data/medlemmerIkkeIRestance.csv");
 
-    public Database(ArrayList<Medlem> medlemmer) {
-        this.medlemmer = medlemmer;
-    }
-
     public Database() {
 
     }
+
+    //ALDERSOVERSIGT
 
     public void aldersOversigt(){
         int totalJunior=0;
@@ -37,6 +35,64 @@ public class Database {
                 "\nUnder 18 : " + totalJunior+
                 "\nFra 18 til 60: " + totalMellemAlder +
                 "\nOver 60 : " + totalSenior);
+    }
+
+
+    // RESTANCE
+    public ArrayList<Medlem> indlæsRestance()  {
+        ArrayList<Medlem> medlemmer = new ArrayList<>();
+        Scanner sc;
+        try {
+            sc = new Scanner(medlemmerIRestance);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        while (sc.hasNext()) {
+
+            String linje = sc.nextLine();
+            String[] attributter = linje.split(";");
+
+            Medlem indlæstMedlem = new Medlem(
+                    attributter[0],
+                    attributter[1],
+                    Integer.parseInt(attributter[2]),
+                    attributter[3],
+                    Boolean.parseBoolean(attributter[4]),
+                    Boolean.parseBoolean(attributter[5]),
+                    Boolean.parseBoolean(attributter[6]),
+                    Integer.parseInt(attributter[7]));
+            medlemmer.add(indlæstMedlem);
+        }
+        sc.close();
+        return medlemmer;
+    }
+
+    public ArrayList<Medlem> indlæsIkkeIRestance()  {
+        ArrayList<Medlem> medlemmer = new ArrayList<>();
+        Scanner sc;
+        try {
+            sc = new Scanner(medlemmerIkkeIRestance);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        while (sc.hasNext()) {
+
+            String linje = sc.nextLine();
+            String[] attributter = linje.split(";");
+
+            Medlem indlæstMedlem = new Medlem(
+                    attributter[0],
+                    attributter[1],
+                    Integer.parseInt(attributter[2]),
+                    attributter[3],
+                    Boolean.parseBoolean(attributter[4]),
+                    Boolean.parseBoolean(attributter[5]),
+                    Boolean.parseBoolean(attributter[6]),
+                    Integer.parseInt(attributter[7]));
+            medlemmer.add(indlæstMedlem);
+        }
+        sc.close();
+        return medlemmer;
     }
 
     public void restanceFil(){
@@ -107,6 +163,8 @@ public class Database {
             throw new RuntimeException(e);
         }
     }
+
+    //OPRET, SLET, REDIGER
 
 
     public void sletMedlem(int input){
@@ -229,64 +287,8 @@ public class Database {
         return medlemmer;
     }
 
-    public ArrayList<Medlem> indlæsRestance()  {
-        ArrayList<Medlem> medlemmer = new ArrayList<>();
-        Scanner sc;
-        try {
-            sc = new Scanner(medlemmerIRestance);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        while (sc.hasNext()) {
 
-            String linje = sc.nextLine();
-            String[] attributter = linje.split(";");
-
-            Medlem indlæstMedlem = new Medlem(
-                    attributter[0],
-                    attributter[1],
-                    Integer.parseInt(attributter[2]),
-                    attributter[3],
-                    Boolean.parseBoolean(attributter[4]),
-                    Boolean.parseBoolean(attributter[5]),
-                    Boolean.parseBoolean(attributter[6]),
-                    Integer.parseInt(attributter[7]));
-            medlemmer.add(indlæstMedlem);
-        }
-        sc.close();
-        return medlemmer;
-    }
-
-    public ArrayList<Medlem> indlæsIkkeIRestance()  {
-        ArrayList<Medlem> medlemmer = new ArrayList<>();
-        Scanner sc;
-        try {
-            sc = new Scanner(medlemmerIkkeIRestance);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        while (sc.hasNext()) {
-
-            String linje = sc.nextLine();
-            String[] attributter = linje.split(";");
-
-            Medlem indlæstMedlem = new Medlem(
-                    attributter[0],
-                    attributter[1],
-                    Integer.parseInt(attributter[2]),
-                    attributter[3],
-                    Boolean.parseBoolean(attributter[4]),
-                    Boolean.parseBoolean(attributter[5]),
-                    Boolean.parseBoolean(attributter[6]),
-                    Integer.parseInt(attributter[7]));
-            medlemmer.add(indlæstMedlem);
-        }
-        sc.close();
-        return medlemmer;
-    }
-
-
-
+    //MEDLEMSNUMMER
     public int medlemsNummer() {
             try {
                 medlemsNummerFil.createNewFile();
@@ -347,8 +349,5 @@ public class Database {
         return medlemmer;
     }
 
-    public void setMedlemmer(ArrayList<Medlem> medlemmer) {
-        this.medlemmer = medlemmer;
-    }
 
 }
