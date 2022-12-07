@@ -30,7 +30,6 @@ public class Medlem {
     }
 
     public Medlem() {
-
     }
 
     public Medlem(String navn, String efternavn, int alder, String køn,boolean aktivitetsForm, boolean konkurrenceSvømmer, boolean studerende, int medlemsNummer) {

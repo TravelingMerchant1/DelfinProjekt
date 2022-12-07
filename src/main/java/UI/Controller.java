@@ -74,13 +74,6 @@ public class Controller {
         return filehandler;
     }
 
-//    public void sorteretMedlemmer() {
-//        Collections.sort(database.getMedlemmers(), new Hold.HoldComparator().thenComparing(new Hold.DisciplinComparator().thenComparing(new Hold.TræningsresultaterComparator())));
-//        for (Datahandler.Medlem sorteretMedlemmer : database.getMedlemmers()) {
-//            System.out.println(sorteretMedlemmer);
-//        }
-//    }
-
     public Medlem nyMedlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsform, boolean konkurrencesvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer){
         return database.nyMedlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer);
     }
@@ -98,14 +91,6 @@ public class Controller {
         filehandler.gemMedlemmer(getMedlemmer());
         filehandler.gemMedlemIRestance(getMedlemmer());
     }
-
-    public void gemRestance() {
-        database.getMedlemmer();
-        //filehandler.gemRestance(getMedlemmer());
-    }
-
-
-
 
 
 }

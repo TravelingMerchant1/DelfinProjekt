@@ -94,11 +94,9 @@ public class UserInterface {
                 kontigentOversigt();
                 break;
             case 3:
-                controller.restanceFil();
                 sætIRestance();
                 break;
             case 4:
-                controller.restanceFil();
                 tagUdAfRestance();
                 break;
             case 5:
@@ -136,7 +134,7 @@ public class UserInterface {
         }
     }
 
-    public void closeProgram() throws FileNotFoundException {
+    public void closeProgram() {
         System.out.println("Du aflsutter nu programmet");
         System.exit(0);
     }
@@ -153,17 +151,13 @@ public class UserInterface {
         controller.aldersOversigt();
     }
 
-    public void gemData() throws FileNotFoundException {
-        controller.gemData();
-    }
-
     public void menuValgInput() {
         menuvalg = input.nextInt();
         input.nextLine();
     }
 
 
-    public void indmeldelse() throws FileNotFoundException {
+    public void indmeldelse() {
         String hold = null;
         String disciplin = null;
         boolean korrektInput = false;
@@ -189,7 +183,6 @@ public class UserInterface {
 
         System.out.println("Køn på medlem");
         String køn;
-        //Scanner scanner = new Scanner(System.in);
         do {
             System.out.println("Indtast venligst M eller K");
             køn = input.next().toLowerCase();
@@ -331,8 +324,6 @@ public class UserInterface {
         }
 
     }
-
-    //TODO : UDSKRIV AlT INFO
     private void udskrivMedlem(Medlem medlem) {
         System.out.println("Navn: " + navnMedStort(medlem));
         System.out.println("Alder: " + medlem.getAlder());
@@ -371,7 +362,7 @@ public class UserInterface {
         System.out.println("indtast nummer på medlem der skal flyttes til restance:");
         int nr = input.nextInt();
         input.nextLine();
-        System.out.println("Medlem: " + navnMedStort(controller.indlæsIkkeIRestance().get(nr)) + " sat i af restance.");
+        System.out.println("Medlem: " + navnMedStort(controller.indlæsIkkeIRestance().get(nr)) + ", " + controller.indlæsIkkeIRestance().get(nr).getMedlemsNummer() +" sat i af restance.");
         controller.sætIRestance(nr);
 
 
@@ -385,16 +376,14 @@ public class UserInterface {
         System.out.println("indtast nummer på medlem der skal flyttes til restance:");
         int nr = input.nextInt();
         input.nextLine();
-        System.out.println("Medlem: " + navnMedStort(controller.indlæsIRestance().get(nr)) + " tager ud af restance.");
+        System.out.println("Medlem: " + navnMedStort(controller.indlæsIRestance().get(nr))+ ", " + controller.indlæsIkkeIRestance().get(nr).getMedlemsNummer()+ " taget ud af restance.");
         controller.tagUdAfRestance(nr);
 
 
     }
-
-
     public void restanceOverblik() {
         for (int i = 0; i < controller.indlæsIRestance().size(); i++) {
-                System.out.println(i + 1 + ") " + navnMedStort(controller.indlæsIRestance().get(i)));
+                System.out.println(i + 1 + ") " + controller.indlæsIRestance().get(i).getMedlemsNummer() + " " + navnMedStort(controller.indlæsIRestance().get(i)));
         }
     }
 
