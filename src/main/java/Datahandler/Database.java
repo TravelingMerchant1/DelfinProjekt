@@ -156,10 +156,6 @@ public class Database {
         sc.close();
         return medlemmer;
     }
-
-
-    //MEDLEMSNUMMER
-
     public Medlem nyMedlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsform, boolean konkurrencesvømmer, String hold, String disciplin, double træningsresultater, boolean studerende, int medlemsNummer) {
         Medlem medlem = new Medlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultater, studerende, medlemsNummer);
         medlemmer.add(medlem);
