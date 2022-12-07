@@ -13,22 +13,7 @@ public class Medlem {
     private double træningsresultat;
     private boolean studerende;
     private int medlemsNummer;
-    private boolean restance;
 
-    public Medlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer, boolean restance) {
-        this.navn = navn;
-        this.efternavn = efternavn;
-        this.alder = alder;
-        this.køn = køn;
-        this.aktivitetsForm = aktivitetsForm;
-        this.konkurrenceSvømmer = konkurrenceSvømmer;
-        this.hold = hold;
-        this.disciplin = disciplin;
-        this.træningsresultat = træningsresultat;
-        this.studerende = studerende;
-        this.medlemsNummer = medlemsNummer;
-        restance = false;
-    }
     public Medlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer) {
         this.navn = navn;
         this.efternavn = efternavn;
@@ -145,14 +130,6 @@ public class Medlem {
 
     public void setStuderende(boolean studerende) {
         this.studerende = studerende;
-    }
-
-    public boolean isRestance() {
-        return restance;
-    }
-
-    public void setRestance(boolean restance) {
-        this.restance = restance;
     }
 
     public double getTræningsresultater() {

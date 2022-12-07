@@ -80,8 +80,6 @@ public class Filehandler {
         output.print(medlem.isStuderende());
         output.print(";");
         output.print(medlem.getMedlemsNummer());
-        output.print(";");
-        output.print(medlem.isRestance());
         output.println();
     }
 

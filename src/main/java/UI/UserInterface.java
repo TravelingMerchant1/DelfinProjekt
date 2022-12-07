@@ -393,31 +393,9 @@ public class UserInterface {
 
 
     public void restanceOverblik() {
-        for (Medlem medlem : controller.indlæsIRestance()) {
-                System.out.println(medlem.getNavn() + " " + medlem.getEfternavn() + ": " + medlem.isRestance());
+        for (int i = 0; i < controller.indlæsIRestance().size(); i++) {
+                System.out.println(i + 1 + ") " + navnMedStort(controller.indlæsIRestance().get(i)));
         }
     }
 
-    private void updateMedlemRestanceStatus() {
-        System.out.println("Hvad er navnet på medlemmet hvis restance status skal opdateres?");
-
-        for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
-            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
-        }
-
-        System.out.println("indtast nummer på medlem der skal flyttes til restance:");
-        int nr = input.nextInt();
-        input.nextLine();
-
-        Medlem restanceMedlem = controller.indlæsMedlemmer().get(nr - 1); // index starter fra 0
-        System.out.println("Flyt medlem: " + navnMedStort(restanceMedlem));
-        System.out.println("Skal medlemmet flyttes til restance? (ja/nej)");
-        String status = input.nextLine();
-        if (status.equalsIgnoreCase("ja")) {
-            restanceMedlem.setRestance(true);
-        } else if (status.equalsIgnoreCase("nej")) {
-            restanceMedlem.setRestance(false);
-        }
-        System.out.println("Medlemmets restance status er nu opdateret ");
-    }
 }
