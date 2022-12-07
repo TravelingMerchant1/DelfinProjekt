@@ -115,13 +115,15 @@ public class UserInterface {
     public void trænerMenu() throws FileNotFoundException {
         System.out.println("Træner Menu:");
         System.out.println("1) Rediger Crawl Tid");
-        System.out.println("1) Rediger Rygcrawl Tid");
-        System.out.println("1) Rediger Brystsvømning Tid");
-        System.out.println("1) Rediger Butterfly Tid");
-        System.out.println("2) Oversigt Over Aldersgrupper.");
-        System.out.println("3) Træningsresultater.");
-        System.out.println("4) Oversigt Til Udtagelse.");
-        System.out.println("9) Tilbage Til Hovedmenu");
+        System.out.println("2) Rediger Rygcrawl Tid");
+        System.out.println("3) Rediger Brystsvømning Tid");
+        System.out.println("4) Rediger Butterfly Tid");
+        System.out.println("5) Oversigt Over Crawl Hold");
+        System.out.println("6) Oversigt Over Rygcrawl Hold.");
+        System.out.println("7) Oversigt Over Brystsvømnings Hold.");
+        System.out.println("8) Oversigt Over Butterfly Hold.");
+        System.out.println("9) Oversigt Til Udtagelse.");
+        System.out.println(") Tilbage Til Hovedmenu");
         trænerMenuInput();
     }
 
@@ -139,6 +141,22 @@ public class UserInterface {
                 break;
             case 4:
                 redigerButterflyTid(input);
+                break;
+            case 5:
+                juniorCrawl();
+                seniorCrawl();
+                break;
+            case 6:
+                juniorRygcrawl();
+                seniorRygcrawl();;
+                break;
+            case 7:
+                juniorBryst();
+                seniorBryst();
+                break;
+            case 8:
+                juniorButterfly();
+                seniorButterfly();
                 break;
             case 9:
                 startMenu();
@@ -165,11 +183,6 @@ public class UserInterface {
         } while (run == true);
     }
 
-
-    //ALDERSOVERSIGT
-    public void aldersOversigt() {
-        controller.aldersOversigt();
-    }
 
 
     //INDMELDELSE, REDIGERING, SLETNING
@@ -315,6 +328,226 @@ public class UserInterface {
         controller.gemData();
     }
 
+    public void redigerMedlem(Scanner input) {
+        for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
+        }
+
+        System.out.println("indtast nummer på medlem der skal redigeres:");
+        int nr = input.nextInt();
+        input.nextLine();
+
+        Medlem editMedlem = controller.indlæsMedlemmer().get(nr - 1); // index starter fra 0
+        System.out.println("Edit medlem: " + navnMedStort(editMedlem));
+
+        System.out.println("Rediger data og tryk ENTER. Hvis data ikke skal redigeres tryk ENTER");
+
+        System.out.println("Navn: " + editMedlem.getNavn());
+        String nyNavn = input.nextLine();
+
+        System.out.println("Efternavn: " + editMedlem.getEfternavn());
+        String nyEfternavn = input.nextLine();
+
+
+        System.out.println("Alder: " + editMedlem.getAlder());
+        String nyAlder = input.nextLine();
+
+
+        System.out.println("Køn: " + editMedlem.getKøn());
+        String nyKøn = input.nextLine();
+
+        System.out.println("Konkurrencesvømmer: " + editMedlem.isKonkurrenceSvømmer());
+        String nyKonkurrencesvømmer = input.nextLine();
+
+        controller.redigerMedlem(nr, nyNavn, nyEfternavn, nyAlder, nyKøn, nyKonkurrencesvømmer);
+
+    }
+
+    public void sletMedlem(Scanner input) {
+        for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
+            System.out.println(i + 1 + ")" + "Medlems nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
+        }
+        System.out.println("indtast nummer på medlem der skal slettes:");
+        int nr = input.nextInt();
+        input.nextLine();
+        System.out.println("Medlem " + nr + ", Navn: " + navnMedStort(controller.indlæsMedlemmer().get(nr)) + " er slettet fra systemet");
+        controller.sletMedlem(nr);
+    }
+
+    //OVERSIGT
+    public void aldersOversigt() {
+        controller.aldersOversigt();
+    }
+    public void medlemsOversigt() {
+        System.out.println(controller.indlæsMedlemmer());
+        for (Medlem medlem : controller.indlæsMedlemmer()) {
+            System.out.println(medlem.getNavn() + " " + medlem.getEfternavn());
+        }
+
+    }
+    public void juniorCrawl(){
+        System.out.println("Junior Crawl Hold, Træner: Jens");
+
+        System.out.println("---------------------------------");
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsCrawl()){
+            if (konkurrenceSvømmer.getAlder()<18){
+                System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
+            }
+        }
+        System.out.println("---------------------------------");
+    }
+    public void seniorCrawl(){
+        System.out.println("Senior Crawl Hold, Træner: Jens");
+
+        System.out.println("---------------------------------");
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsCrawl()){
+            if (konkurrenceSvømmer.getAlder() >=18){
+                System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
+            }
+        }
+        System.out.println("---------------------------------");
+    }
+    public void juniorRygcrawl(){
+        System.out.println("Junior Rygcrawl Hold, Træner: Jens");
+
+        System.out.println("---------------------------------");
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsRygcrawl()){
+            if (konkurrenceSvømmer.getAlder()<18){
+                System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
+            }
+        }
+        System.out.println("---------------------------------");
+    }
+    public void seniorRygcrawl(){
+        System.out.println("Senior Rygcrawl Hold, Træner: Jens");
+
+        System.out.println("---------------------------------");
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsRygcrawl()){
+            if (konkurrenceSvømmer.getAlder()>=18){
+                System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
+            }
+        }
+        System.out.println("---------------------------------");
+    }
+    public void juniorBryst(){
+        System.out.println("Junior Brystsvømnings Hold, Træner: Jens");
+
+        System.out.println("---------------------------------");
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsBrystsvømning()){
+            if (konkurrenceSvømmer.getAlder()<18){
+                System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
+            }
+        }
+
+
+        System.out.println("---------------------------------");
+    }
+    public void seniorBryst(){
+        System.out.println("Senior Brystsvømnings Hold, Træner: Jens");
+
+        System.out.println("---------------------------------");
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsBrystsvømning()){
+            if (konkurrenceSvømmer.getAlder()>=18){
+                System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
+            }
+        }
+        System.out.println("---------------------------------");
+    }
+    public void juniorButterfly(){
+        System.out.println("Junior Rygcrawl Hold, Træner: Jens");
+
+        System.out.println("---------------------------------");
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsButterfly()){
+            if (konkurrenceSvømmer.getAlder()<18){
+                System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
+            }
+        }
+
+
+        System.out.println("---------------------------------");
+    }
+    public void seniorButterfly(){
+        System.out.println("Senior Rygcrawl Hold, Træner: Jens");
+
+        System.out.println("---------------------------------");
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsButterfly()){
+            if (konkurrenceSvømmer.getAlder()>=18){
+                System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
+            }
+        }
+        System.out.println("---------------------------------");
+    }
+
+
+    //KONTINGENT
+
+    public void kontigentOversigt() {
+        controller.kontingentOversigt();
+    }
+
+    public void kontingentTotal() {
+        System.out.println("Den totale bruttoindkomst er: " + controller.kontingentTotal() + " kr.");
+    }
+
+    //RESTANCE
+
+    public void sætIRestance() {
+        for (int i = 0; i < controller.indlæsIkkeIRestance().size(); i++) {
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsIkkeIRestance().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsIkkeIRestance().get(i)));
+        }
+
+        System.out.println("indtast nummer på medlem der skal flyttes til restance:");
+        int nr = input.nextInt();
+        input.nextLine();
+        System.out.println("Medlem: " + navnMedStort(controller.indlæsIkkeIRestance().get(nr)) + ", " + controller.indlæsIkkeIRestance().get(nr).getMedlemsNummer() +" sat i af restance.");
+        controller.sætIRestance(nr);
+
+
+    }
+
+    public void tagUdAfRestance(){
+        for (int i = 0; i < controller.indlæsIRestance().size(); i++) {
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsIRestance().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsIRestance().get(i)));
+        }
+
+        System.out.println("indtast nummer på medlem der skal flyttes til restance:");
+        int nr = input.nextInt();
+        input.nextLine();
+        System.out.println("Medlem: " + navnMedStort(controller.indlæsIRestance().get(nr))+ ", " + controller.indlæsIkkeIRestance().get(nr).getMedlemsNummer()+ " taget ud af restance.");
+        controller.tagUdAfRestance(nr);
+
+
+    }
+    public void restanceOverblik() {
+        for (int i = 0; i < controller.indlæsIRestance().size(); i++) {
+                System.out.println(i + 1 + ") " + controller.indlæsIRestance().get(i).getMedlemsNummer() + " " + navnMedStort(controller.indlæsIRestance().get(i)));
+        }
+    }
+
+    //DIVERSE
+    private void udskrivMedlem(Medlem medlem) {
+        System.out.println("Navn: " + navnMedStort(medlem));
+        System.out.println("Alder: " + medlem.getAlder());
+        System.out.println("Køn: " + medlem.getKøn());
+        System.out.println("Konkurrencesvømmer: " + medlem.isKonkurrenceSvømmer());
+        System.out.println("Medlemsnummer : " + medlem.getMedlemsNummer());
+
+    }
+
+    public String navnMedStort(Medlem medlem) {
+        String navnMedStort = "";
+        String førsteBogstavFornavn = medlem.getNavn().substring(0, 1).toUpperCase();
+        String fornavn = førsteBogstavFornavn + medlem.getNavn().substring(1);
+
+        String førsteBogstavEfternavn = medlem.getEfternavn().substring(0, 1).toUpperCase();
+        String efternavn = førsteBogstavEfternavn + medlem.getEfternavn().substring(1);
+
+        navnMedStort = fornavn + " " + efternavn;
+
+        return navnMedStort;
+    }
+
+    //REDIGER SVØMMETIDER
     public void redigerCrawlTid(Scanner input){
         for (int i = 0; i < controller.indlæsCrawl().size(); i++) {
             System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsCrawl().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsCrawl().get(i)));
@@ -397,128 +630,6 @@ public class UserInterface {
 
 
 
-    public void redigerMedlem(Scanner input) {
-        for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
-            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
-        }
-
-        System.out.println("indtast nummer på medlem der skal redigeres:");
-        int nr = input.nextInt();
-        input.nextLine();
-
-        Medlem editMedlem = controller.indlæsMedlemmer().get(nr - 1); // index starter fra 0
-        System.out.println("Edit medlem: " + navnMedStort(editMedlem));
-
-        System.out.println("Rediger data og tryk ENTER. Hvis data ikke skal redigeres tryk ENTER");
-
-        System.out.println("Navn: " + editMedlem.getNavn());
-        String nyNavn = input.nextLine();
-
-        System.out.println("Efternavn: " + editMedlem.getEfternavn());
-        String nyEfternavn = input.nextLine();
-
-
-        System.out.println("Alder: " + editMedlem.getAlder());
-        String nyAlder = input.nextLine();
-
-
-        System.out.println("Køn: " + editMedlem.getKøn());
-        String nyKøn = input.nextLine();
-
-        System.out.println("Konkurrencesvømmer: " + editMedlem.isKonkurrenceSvømmer());
-        String nyKonkurrencesvømmer = input.nextLine();
-
-        controller.redigerMedlem(nr, nyNavn, nyEfternavn, nyAlder, nyKøn, nyKonkurrencesvømmer);
-
-    }
-
-    public void sletMedlem(Scanner input) {
-        for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
-            System.out.println(i + 1 + ")" + "Medlems nummer: " + controller.indlæsMedlemmer().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsMedlemmer().get(i)));
-        }
-        System.out.println("indtast nummer på medlem der skal slettes:");
-        int nr = input.nextInt();
-        input.nextLine();
-        System.out.println("Medlem " + nr + ", Navn: " + navnMedStort(controller.indlæsMedlemmer().get(nr)) + " er slettet fra systemet");
-        controller.sletMedlem(nr);
-    }
-
-    //OVERSIGT
-    public void medlemsOversigt() {
-        System.out.println(controller.indlæsMedlemmer());
-        for (Medlem medlem : controller.indlæsMedlemmer()) {
-            System.out.println(medlem.getNavn() + " " + medlem.getEfternavn());
-        }
-
-    }
-
-    //KONTINGENT
-
-    public void kontigentOversigt() {
-        controller.kontingentOversigt();
-    }
-
-    public void kontingentTotal() {
-        System.out.println("Den totale bruttoindkomst er: " + controller.kontingentTotal() + " kr.");
-    }
-
-    //RESTANCE
-
-    public void sætIRestance() {
-        for (int i = 0; i < controller.indlæsIkkeIRestance().size(); i++) {
-            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsIkkeIRestance().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsIkkeIRestance().get(i)));
-        }
-
-        System.out.println("indtast nummer på medlem der skal flyttes til restance:");
-        int nr = input.nextInt();
-        input.nextLine();
-        System.out.println("Medlem: " + navnMedStort(controller.indlæsIkkeIRestance().get(nr)) + ", " + controller.indlæsIkkeIRestance().get(nr).getMedlemsNummer() +" sat i af restance.");
-        controller.sætIRestance(nr);
-
-
-    }
-
-    public void tagUdAfRestance(){
-        for (int i = 0; i < controller.indlæsIRestance().size(); i++) {
-            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsIRestance().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsIRestance().get(i)));
-        }
-
-        System.out.println("indtast nummer på medlem der skal flyttes til restance:");
-        int nr = input.nextInt();
-        input.nextLine();
-        System.out.println("Medlem: " + navnMedStort(controller.indlæsIRestance().get(nr))+ ", " + controller.indlæsIkkeIRestance().get(nr).getMedlemsNummer()+ " taget ud af restance.");
-        controller.tagUdAfRestance(nr);
-
-
-    }
-    public void restanceOverblik() {
-        for (int i = 0; i < controller.indlæsIRestance().size(); i++) {
-                System.out.println(i + 1 + ") " + controller.indlæsIRestance().get(i).getMedlemsNummer() + " " + navnMedStort(controller.indlæsIRestance().get(i)));
-        }
-    }
-
-    //DIVERSE
-    private void udskrivMedlem(Medlem medlem) {
-        System.out.println("Navn: " + navnMedStort(medlem));
-        System.out.println("Alder: " + medlem.getAlder());
-        System.out.println("Køn: " + medlem.getKøn());
-        System.out.println("Konkurrencesvømmer: " + medlem.isKonkurrenceSvømmer());
-        System.out.println("Medlemsnummer : " + medlem.getMedlemsNummer());
-
-    }
-
-    public String navnMedStort(Medlem medlem) {
-        String navnMedStort = "";
-        String førsteBogstavFornavn = medlem.getNavn().substring(0, 1).toUpperCase();
-        String fornavn = førsteBogstavFornavn + medlem.getNavn().substring(1);
-
-        String førsteBogstavEfternavn = medlem.getEfternavn().substring(0, 1).toUpperCase();
-        String efternavn = førsteBogstavEfternavn + medlem.getEfternavn().substring(1);
-
-        navnMedStort = fornavn + " " + efternavn;
-
-        return navnMedStort;
-    }
 
 
 }
