@@ -6,7 +6,6 @@ public class Medlem {
     private String efternavn;
     private int alder;
     private String køn;
-    private boolean aktivitetsForm;
     private boolean konkurrenceSvømmer;
     private String hold;
     private String disciplin;
@@ -14,12 +13,11 @@ public class Medlem {
     private boolean studerende;
     private int medlemsNummer;
 
-    public Medlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsForm, boolean konkurrenceSvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer) {
+    public Medlem(String navn, String efternavn, int alder, String køn, boolean konkurrenceSvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer) {
         this.navn = navn;
         this.efternavn = efternavn;
         this.alder = alder;
         this.køn = køn;
-        this.aktivitetsForm = aktivitetsForm;
         this.konkurrenceSvømmer = konkurrenceSvømmer;
         this.hold = hold;
         this.disciplin = disciplin;
@@ -32,16 +30,24 @@ public class Medlem {
     public Medlem() {
     }
 
-    public Medlem(String navn, String efternavn, int alder, String køn,boolean aktivitetsForm, boolean konkurrenceSvømmer, boolean studerende, int medlemsNummer) {
+    public Medlem(String navn, String efternavn, int alder, String køn, boolean konkurrenceSvømmer, boolean studerende, int medlemsNummer) {
         this.navn = navn;
         this.efternavn = efternavn;
         this.alder = alder;
         this.køn = køn;
-        this.aktivitetsForm = aktivitetsForm;
         this.konkurrenceSvømmer = konkurrenceSvømmer;
         this.studerende = studerende;
         this.medlemsNummer = medlemsNummer;
     }
+
+    public Medlem(String navn, String efternavn, int alder, String køn, int medlemsNummer) {
+        this.navn = navn;
+        this.efternavn = efternavn;
+        this.alder = alder;
+        this.køn = køn;
+        this.medlemsNummer = medlemsNummer;
+    }
+
 
     public String getNavn() {
         return navn;
@@ -75,13 +81,6 @@ public class Medlem {
         this.køn = køn;
     }
 
-    public boolean isAktivitetsForm() {
-        return aktivitetsForm;
-    }
-
-    public void setAktivitetsForm(boolean aktivitetsForm) {
-        this.aktivitetsForm = aktivitetsForm;
-    }
 
     public boolean isKonkurrenceSvømmer() {
         return konkurrenceSvømmer;

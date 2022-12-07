@@ -33,7 +33,6 @@ public class Restance {
                     attributter[1],
                     Integer.parseInt(attributter[2]),
                     attributter[3],
-                    Boolean.parseBoolean(attributter[4]),
                     Boolean.parseBoolean(attributter[5]),
                     Boolean.parseBoolean(attributter[6]),
                     Integer.parseInt(attributter[7]));
@@ -61,7 +60,6 @@ public class Restance {
                     attributter[1],
                     Integer.parseInt(attributter[2]),
                     attributter[3],
-                    Boolean.parseBoolean(attributter[4]),
                     Boolean.parseBoolean(attributter[5]),
                     Boolean.parseBoolean(attributter[6]),
                     Integer.parseInt(attributter[7]));

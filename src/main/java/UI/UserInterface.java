@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import Datahandler.*;
+import Hold.KonkurrenceSvømmer;
 
 public class UserInterface {
     private int menuvalg;
@@ -169,6 +170,10 @@ public class UserInterface {
         String disciplin = null;
         boolean korrektInput = false;
         double træningsresultat = 0;
+        boolean erCrawler = false;
+        boolean erRygcrawler = false;
+        boolean erBrystsvømmer = false;
+        boolean erButterflyer = false;
 
         System.out.println("Navn på medlem: ");
         String navn = input.nextLine();
@@ -209,18 +214,34 @@ public class UserInterface {
         } while (!korrektInput);
 
 
-        System.out.println("aktivitetsform på medlem (A)ktiv/(P)assiv: ");
-        boolean aktivitetsForm = true;
+        System.out.println("Er medlem en konkurrencesvømmer (M)otionist/(K)onkurrencesvømmer: ");
+        boolean erKonkurrenceSvømmer = true;
         do {
-            String aktivitetsFormString = input.next().toLowerCase();
+            String konkurrenceSvømmerString = input.next().toLowerCase();
             korrektInput = false;
-            switch (aktivitetsFormString) {
-                case "a":
-                    aktivitetsForm = true;
+            switch (konkurrenceSvømmerString) {
+                case "k":
+                    System.out.println("Skal medlem være på crawl hold? J/N");
+                    if (input.next().equalsIgnoreCase("j")){
+                        erCrawler=true;
+                    }
+                    System.out.println("Skal medlem være på rygcrawl hold? J/N");
+                    if (input.next().equalsIgnoreCase("j")){
+                        erRygcrawler=true;
+                    }
+                    System.out.println("Skal medlem være på brystsvømning hold? J/N");
+                    if (input.next().equalsIgnoreCase("j")){
+                        erBrystsvømmer=true;
+                    }
+                    System.out.println("Skal medlem være på butterfly hold? J/N");
+                    if (input.next().equalsIgnoreCase("j")){
+                        erButterflyer=true;
+                    }
+                    erKonkurrenceSvømmer = true;
                     korrektInput = true;
                     break;
-                case "p":
-                    aktivitetsForm = false;
+                case "m":
+                    erKonkurrenceSvømmer = false;
                     korrektInput = true;
                     break;
                 default:
@@ -228,24 +249,6 @@ public class UserInterface {
                     break;
             }
         } while (!korrektInput);
-
-        System.out.println("Er medlem en konkurrencesvømmer (M)otionist/(K)onkurrencesvømmer: ");
-        boolean konkurrencesvømmer = false;
-        if (input.nextLine().equalsIgnoreCase("k")) {
-            konkurrencesvømmer = true;
-        } else if (input.nextLine().equalsIgnoreCase("m")) {
-            konkurrencesvømmer = false;
-        } else {
-            System.out.println("Venligst indtast M/K");
-        }
-
-        if (konkurrencesvømmer) {
-            System.out.println("Hvilket hold skal medlem være en del af? (Junior/Senior)");
-            hold = input.nextLine();
-
-            System.out.println("Hvilken disciplin skal medlem svømme i?");
-            disciplin = input.nextLine();
-        }
 
         System.out.println("Er medlemmet studerende? J/N");
         boolean studerende = true;
@@ -264,13 +267,45 @@ public class UserInterface {
         controller.nytMedlemsNummer();
         controller.sidsteMedlemsNummer();
 
-        Medlem medlem = controller.nyMedlem(navn, efternavn, alder, køn, aktivitetsForm, konkurrencesvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer);
+        Medlem medlem = controller.nyMedlem(navn, efternavn, alder, køn, erKonkurrenceSvømmer, hold, disciplin, træningsresultat, studerende, medlemsNummer);
+        double tid = 0;
 
+        if (erKonkurrenceSvømmer) {
+            KonkurrenceSvømmer konkurrenceSvømmer = controller.nyKonkurrenceSvømmer(navn, efternavn, alder, køn, medlemsNummer, tid);
+            if (erCrawler){
+                controller.gemMedlemCrawl();
+            }
+            if (erRygcrawler){
+                controller.gemMedlemRygcrawl();
+            }
+            if (erBrystsvømmer){
+                controller.gemMedlemBrystsvømning();
+            }
+            if (erButterflyer){
+                controller.gemMedlemButtefly();
+            }
+        }
         System.out.println("---------------------------------");
         udskrivMedlem(medlem);
+        if (erKonkurrenceSvømmer) {
+            System.out.println("Medlem er skrevet op til:");
+            if (erCrawler) {
+                System.out.println("Crawl");
+            }
+            if (erRygcrawler) {
+                System.out.println("Rygcrawl");
+            }
+            if (erBrystsvømmer) {
+                System.out.println("Brystvømning");
+            }
+            if (erButterflyer) {
+                System.out.println("Butterfly");
+            }
+        }
         System.out.println("---------------------------------");
         controller.gemData();
     }
+
 
     public void redigerMedlem(Scanner input) {
         for (int i = 0; i < controller.indlæsMedlemmer().size(); i++) {
@@ -300,15 +335,10 @@ public class UserInterface {
         System.out.println("Køn: " + editMedlem.getKøn());
         String nyKøn = input.nextLine();
 
-
-        System.out.println("Aktivitetsform: " + editMedlem.isAktivitetsForm());
-        String nyAktivitetsform = input.nextLine();
-
-
         System.out.println("Konkurrencesvømmer: " + editMedlem.isKonkurrenceSvømmer());
         String nyKonkurrencesvømmer = input.nextLine();
 
-        controller.redigerMedlem(nr, nyNavn, nyEfternavn, nyAlder, nyKøn, nyAktivitetsform, nyKonkurrencesvømmer);
+        controller.redigerMedlem(nr, nyNavn, nyEfternavn, nyAlder, nyKøn, nyKonkurrencesvømmer);
 
     }
 
@@ -382,9 +412,9 @@ public class UserInterface {
         System.out.println("Navn: " + navnMedStort(medlem));
         System.out.println("Alder: " + medlem.getAlder());
         System.out.println("Køn: " + medlem.getKøn());
-        System.out.println("Aktivitetsform: " + medlem.isAktivitetsForm());
         System.out.println("Konkurrencesvømmer: " + medlem.isKonkurrenceSvømmer());
         System.out.println("Medlemsnummer : " + medlem.getMedlemsNummer());
+
     }
 
     public String navnMedStort(Medlem medlem) {

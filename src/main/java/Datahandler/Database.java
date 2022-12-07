@@ -1,11 +1,14 @@
 package Datahandler;
 
+import Hold.KonkurrenceSvømmer;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Database {
     private ArrayList<Medlem> medlemmer = new ArrayList<>();
+    private ArrayList<KonkurrenceSvømmer> konkurrenceSvømmere = new ArrayList<>();
     private File medlemmerFil = new File("data/medlemmer.csv");
 
     public Database() {
@@ -58,7 +61,7 @@ public class Database {
         }
     }
 
-    public void redigerMedlem(int input, String navn, String efternavn, String alder, String køn, String aktivitetsform, String konkurrencesvømmer){
+    public void redigerMedlem(int input, String navn, String efternavn, String alder, String køn, String konkurrencesvømmer){
 
         Medlem medlem = indlæsMedlemmer().get(input-1);
         if (navn.isEmpty()){
@@ -83,23 +86,14 @@ public class Database {
             medlem.setKøn(køn);
         }
 
-        if (aktivitetsform.isEmpty()){
-            medlem.setAktivitetsForm(medlem.isAktivitetsForm());
-        } else {
-            if (aktivitetsform.equals("y")){
-                medlem.setAktivitetsForm(true);
-            } else if (aktivitetsform.equals("n")){
-                medlem.setAktivitetsForm(false);
-            }
-        }
 
         if (konkurrencesvømmer.isEmpty()){
-            medlem.setAktivitetsForm(medlem.isAktivitetsForm());
+            medlem.setKonkurrenceSvømmer(medlem.isKonkurrenceSvømmer());
         } else {
             if (konkurrencesvømmer.equals("y")){
-                medlem.setAktivitetsForm(true);
+                medlem.setKonkurrenceSvømmer(true);
             } else if (konkurrencesvømmer.equals("n")){
-                medlem.setAktivitetsForm(false);
+                medlem.setKonkurrenceSvømmer(false);
             }
         }
 
@@ -125,7 +119,7 @@ public class Database {
     }
 
     static void saveData(PrintWriter output, Medlem medlem) {
-        Filehandler.dataWriting(output, medlem);
+        Filehandler.skrivMedlemData(output, medlem);
     }
 
 
@@ -147,7 +141,6 @@ public class Database {
                     attributter[1],
                     Integer.parseInt(attributter[2]),
                     attributter[3],
-                    Boolean.parseBoolean(attributter[4]),
                     Boolean.parseBoolean(attributter[5]),
                     Boolean.parseBoolean(attributter[6]),
                     Integer.parseInt(attributter[7]));
@@ -156,15 +149,30 @@ public class Database {
         sc.close();
         return medlemmer;
     }
-    public Medlem nyMedlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsform, boolean konkurrencesvømmer, String hold, String disciplin, double træningsresultater, boolean studerende, int medlemsNummer) {
-        Medlem medlem = new Medlem(navn, efternavn, alder, køn, aktivitetsform, konkurrencesvømmer, hold, disciplin, træningsresultater, studerende, medlemsNummer);
+    public Medlem nyMedlem(String navn, String efternavn, int alder, String køn, boolean konkurrencesvømmer, String hold, String disciplin, double træningsresultater, boolean studerende, int medlemsNummer) {
+        Medlem medlem = new Medlem(navn, efternavn, alder, køn, konkurrencesvømmer, hold, disciplin, træningsresultater, studerende, medlemsNummer);
         medlemmer.add(medlem);
         return medlem;
+    }
+
+    public KonkurrenceSvømmer nyKonkurrenceSvømmer(String navn, String efternavn, int alder, String køn, int medlemsNummer, double tid){
+        KonkurrenceSvømmer konkurrenceSvømmer = new KonkurrenceSvømmer(navn, efternavn, alder, køn, medlemsNummer, tid);
+        konkurrenceSvømmere.add(konkurrenceSvømmer);
+        return konkurrenceSvømmer;
     }
 
     public ArrayList<Medlem> getMedlemmer() {
         return medlemmer;
     }
+
+    public ArrayList<KonkurrenceSvømmer> getKonkurrenceSvømmere() {
+        return konkurrenceSvømmere;
+    }
+
+    public void setKonkurrenceSvømmere(ArrayList<KonkurrenceSvømmer> konkurrenceSvømmere) {
+        this.konkurrenceSvømmere = konkurrenceSvømmere;
+    }
+
 
 
 }
