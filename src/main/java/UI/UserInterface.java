@@ -114,7 +114,10 @@ public class UserInterface {
 
     public void trænerMenu() throws FileNotFoundException {
         System.out.println("Træner Menu:");
-        System.out.println("1) Oversigt Over Hold.");
+        System.out.println("1) Rediger Crawl Tid");
+        System.out.println("1) Rediger Rygcrawl Tid");
+        System.out.println("1) Rediger Brystsvømning Tid");
+        System.out.println("1) Rediger Butterfly Tid");
         System.out.println("2) Oversigt Over Aldersgrupper.");
         System.out.println("3) Træningsresultater.");
         System.out.println("4) Oversigt Til Udtagelse.");
@@ -126,10 +129,16 @@ public class UserInterface {
         menuValgInput();
         switch (menuvalg) {
             case 1:
+                redigerCrawlTid(input);
                 break;
             case 2:
+                redigerRygcrawlTid(input);
                 break;
             case 3:
+                redigerBrystsvømningTid(input);
+                break;
+            case 4:
+                redigerButterflyTid(input);
                 break;
             case 9:
                 startMenu();
@@ -305,6 +314,87 @@ public class UserInterface {
         System.out.println("---------------------------------");
         controller.gemData();
     }
+
+    public void redigerCrawlTid(Scanner input){
+        for (int i = 0; i < controller.indlæsCrawl().size(); i++) {
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsCrawl().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsCrawl().get(i)));
+        }
+        System.out.println("indtast nummer på medlem der skal redigeres:");
+        int nr = input.nextInt();
+        input.nextLine();
+
+        KonkurrenceSvømmer redigerCrawlTid = controller.indlæsCrawl().get(nr - 1); // index starter fra 0
+        System.out.println("Edit medlem: " + navnMedStort(redigerCrawlTid) + ", Bedste Tid: " + redigerCrawlTid.getTid());
+
+        System.out.println("Rediger data og tryk ENTER. Hvis data ikke skal redigeres tryk ENTER");
+
+        System.out.println("Navn: " + redigerCrawlTid.getNavn() + " har en tid på " + redigerCrawlTid.getTid());
+        String nyTid = input.nextLine();
+
+        controller.redigerCrawlTid(nr, nyTid);
+
+    }
+
+    public void redigerRygcrawlTid(Scanner input){
+        for (int i = 0; i < controller.indlæsRygcrawl().size(); i++) {
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsRygcrawl().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsRygcrawl().get(i)));
+        }
+        System.out.println("indtast nummer på medlem der skal redigeres:");
+        int nr = input.nextInt();
+        input.nextLine();
+
+        KonkurrenceSvømmer redigerRygcrawlTid = controller.indlæsRygcrawl().get(nr - 1); // index starter fra 0
+        System.out.println("Edit medlem: " + navnMedStort(redigerRygcrawlTid) + ", Bedste Tid: " + redigerRygcrawlTid.getTid());
+
+        System.out.println("Rediger data og tryk ENTER. Hvis data ikke skal redigeres tryk ENTER");
+
+        System.out.println("Navn: " + redigerRygcrawlTid.getNavn() + " har en tid på " + redigerRygcrawlTid.getTid());
+        String nyTid = input.nextLine();
+
+        controller.redigerRygcrawlTid(nr, nyTid);
+
+    }
+
+    public void redigerBrystsvømningTid(Scanner input){
+        for (int i = 0; i < controller.indlæsBrystsvømning().size(); i++) {
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsBrystsvømning().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsBrystsvømning().get(i)));
+        }
+        System.out.println("indtast nummer på medlem der skal redigeres:");
+        int nr = input.nextInt();
+        input.nextLine();
+
+        KonkurrenceSvømmer redigerBrystsvømningTid = controller.indlæsBrystsvømning().get(nr - 1); // index starter fra 0
+        System.out.println("Edit medlem: " + navnMedStort(redigerBrystsvømningTid) + ", Bedste Tid: " + redigerBrystsvømningTid.getTid());
+
+        System.out.println("Rediger data og tryk ENTER. Hvis data ikke skal redigeres tryk ENTER");
+
+        System.out.println("Navn: " + redigerBrystsvømningTid.getNavn() + " har en tid på " + redigerBrystsvømningTid.getTid());
+        String nyTid = input.nextLine();
+
+        controller.redigerBrystsvømningTid(nr, nyTid);
+
+    }
+
+    public void redigerButterflyTid(Scanner input){
+        for (int i = 0; i < controller.indlæsButterfly().size(); i++) {
+            System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsButterfly().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsButterfly().get(i)));
+        }
+        System.out.println("indtast nummer på medlem der skal redigeres:");
+        int nr = input.nextInt();
+        input.nextLine();
+
+        KonkurrenceSvømmer redigerButterflyTid = controller.indlæsButterfly().get(nr - 1); // index starter fra 0
+        System.out.println("Edit medlem: " + navnMedStort(redigerButterflyTid) + ", Bedste Tid: " + redigerButterflyTid.getTid());
+
+        System.out.println("Rediger data og tryk ENTER. Hvis data ikke skal redigeres tryk ENTER");
+
+        System.out.println("Navn: " + redigerButterflyTid.getNavn() + " har en tid på " + redigerButterflyTid.getTid());
+        String nyTid = input.nextLine();
+
+        controller.redigerButterflyTid(nr, nyTid);
+
+    }
+
 
 
     public void redigerMedlem(Scanner input) {

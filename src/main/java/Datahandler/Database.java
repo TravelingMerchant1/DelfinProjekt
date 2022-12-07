@@ -3,6 +3,8 @@ package Datahandler;
 import Hold.KonkurrenceSvømmer;
 
 import java.io.*;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,6 +12,10 @@ public class Database {
     private ArrayList<Medlem> medlemmer = new ArrayList<>();
     private ArrayList<KonkurrenceSvømmer> konkurrenceSvømmere = new ArrayList<>();
     private File medlemmerFil = new File("data/medlemmer.csv");
+    private File brystsvømningFil = new File ("data/brystsvømning.csv");
+    private File crawlFil = new File ("data/crawl.csv");
+    private File rygcrawlFil = new File ("data/rygcrawl.csv");
+    private File butterflyFil = new File ("data/butterfly.csv");
 
     public Database() {
 
@@ -77,8 +83,13 @@ public class Database {
         if (alder.isEmpty()){
             medlem.setAlder(medlem.getAlder());
         } else {
-            Integer.parseInt(alder);
-            medlem.setNavn(alder);
+            int nyAlder;
+            try {
+                nyAlder = DecimalFormat.getNumberInstance().parse(alder).intValue();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            medlem.setAlder(nyAlder);
         }
         if (køn.isEmpty()){
             medlem.setKøn(medlem.getKøn());
@@ -110,7 +121,7 @@ public class Database {
             clearFile.close();
             output = new PrintWriter(new FileWriter(medlemmerFil, true));
             for (Medlem medlemmer1 : tempMedlemmer) {
-                saveData(output, medlemmer1);
+                gemMedlemData(output, medlemmer1);
             }
             output.close();
         } catch (IOException e) {
@@ -118,8 +129,153 @@ public class Database {
         }
     }
 
-    static void saveData(PrintWriter output, Medlem medlem) {
+    public void redigerCrawlTid(int input, String tid){
+        KonkurrenceSvømmer konkurrenceSvømmer = indlæsCrawl().get(input-1);
+        if (tid.isEmpty()){
+            konkurrenceSvømmer.setTid(konkurrenceSvømmer.getTid());
+        } else {
+            double ændreTid;
+            try {
+                 ændreTid = DecimalFormat.getNumberInstance().parse(tid).doubleValue();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            konkurrenceSvømmer.setTid(ændreTid);
+        }
+
+
+        ArrayList<KonkurrenceSvømmer> crawler = new ArrayList<>();
+        crawler.addAll(indlæsCrawl());
+        crawler.remove(input-1);
+        crawler.add(input-1, konkurrenceSvømmer);
+
+        PrintWriter output = null;
+        PrintWriter clearFile = null;
+        try {
+            clearFile = new PrintWriter(new FileWriter(crawlFil, false));
+            clearFile.print("");
+            clearFile.close();
+            output = new PrintWriter(new FileWriter(crawlFil, true));
+            for (KonkurrenceSvømmer konkurrenceSvømmer1 : crawler) {
+                gemKonkurrenceMedlemData(output, konkurrenceSvømmer1);
+            }
+            output.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void redigerRygrawlTid(int input, String tid){
+        KonkurrenceSvømmer konkurrenceSvømmer = indlæsBrystvømning().get(input-1);
+        if (tid.isEmpty()){
+            konkurrenceSvømmer.setTid(konkurrenceSvømmer.getTid());
+        } else {
+            double ændreTid;
+            try {
+                ændreTid = DecimalFormat.getNumberInstance().parse(tid).doubleValue();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            konkurrenceSvømmer.setTid(ændreTid);
+        }
+
+
+        ArrayList<KonkurrenceSvømmer> crawler = new ArrayList<>();
+        crawler.addAll(indlæsRygrawl());
+        crawler.remove(input-1);
+        crawler.add(input-1, konkurrenceSvømmer);
+
+        PrintWriter output = null;
+        PrintWriter clearFile = null;
+        try {
+            clearFile = new PrintWriter(new FileWriter(rygcrawlFil, false));
+            clearFile.print("");
+            clearFile.close();
+            output = new PrintWriter(new FileWriter(rygcrawlFil, true));
+            for (KonkurrenceSvømmer konkurrenceSvømmer1 : crawler) {
+                gemKonkurrenceMedlemData(output, konkurrenceSvømmer1);
+            }
+            output.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void redigerBrystsvømningTid(int input, String tid){
+        KonkurrenceSvømmer konkurrenceSvømmer = indlæsBrystvømning().get(input-1);
+        if (tid.isEmpty()){
+            konkurrenceSvømmer.setTid(konkurrenceSvømmer.getTid());
+        } else {
+            double ændreTid;
+            try {
+                ændreTid = DecimalFormat.getNumberInstance().parse(tid).doubleValue();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            konkurrenceSvømmer.setTid(ændreTid);
+        }
+
+
+        ArrayList<KonkurrenceSvømmer> crawler = new ArrayList<>();
+        crawler.addAll(indlæsBrystvømning());
+        crawler.remove(input-1);
+        crawler.add(input-1, konkurrenceSvømmer);
+
+        PrintWriter output = null;
+        PrintWriter clearFile = null;
+        try {
+            clearFile = new PrintWriter(new FileWriter(brystsvømningFil, false));
+            clearFile.print("");
+            clearFile.close();
+            output = new PrintWriter(new FileWriter(brystsvømningFil, true));
+            for (KonkurrenceSvømmer konkurrenceSvømmer1 : crawler) {
+                gemKonkurrenceMedlemData(output, konkurrenceSvømmer1);
+            }
+            output.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void redigerButterflyTid(int input, String tid){
+        KonkurrenceSvømmer konkurrenceSvømmer = indlæsButterfly().get(input-1);
+        if (tid.isEmpty()){
+            konkurrenceSvømmer.setTid(konkurrenceSvømmer.getTid());
+        } else {
+            double ændreTid;
+            try {
+                ændreTid = DecimalFormat.getNumberInstance().parse(tid).doubleValue();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            konkurrenceSvømmer.setTid(ændreTid);
+        }
+
+
+        ArrayList<KonkurrenceSvømmer> crawler = new ArrayList<>();
+        crawler.addAll(indlæsButterfly());
+        crawler.remove(input-1);
+        crawler.add(input-1, konkurrenceSvømmer);
+
+        PrintWriter output = null;
+        PrintWriter clearFile = null;
+        try {
+            clearFile = new PrintWriter(new FileWriter(butterflyFil, false));
+            clearFile.print("");
+            clearFile.close();
+            output = new PrintWriter(new FileWriter(butterflyFil, true));
+            for (KonkurrenceSvømmer konkurrenceSvømmer1 : crawler) {
+                gemKonkurrenceMedlemData(output, konkurrenceSvømmer1);
+            }
+            output.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    static void gemMedlemData(PrintWriter output, Medlem medlem) {
         Filehandler.skrivMedlemData(output, medlem);
+    }
+
+    static void gemKonkurrenceMedlemData(PrintWriter output, KonkurrenceSvømmer konkurrenceSvømmer) {
+        Filehandler.skrivKonkurrenceSvømmerData(output, konkurrenceSvømmer);
     }
 
 
@@ -143,14 +299,138 @@ public class Database {
                     attributter[3],
                     Boolean.parseBoolean(attributter[5]),
                     Boolean.parseBoolean(attributter[6]),
-                    Integer.parseInt(attributter[7]));
+                    Integer.parseInt(attributter[7])) {
+
+                @Override
+                public double getTid() {
+                    return 0;
+                }
+
+                @Override
+                public void setTid(double tid) {
+
+                }
+            };
             medlemmer.add(indlæstMedlem);
         }
         sc.close();
         return medlemmer;
     }
+
+    public ArrayList<KonkurrenceSvømmer> indlæsCrawl()  {
+        ArrayList<KonkurrenceSvømmer> konkurrenceSvømmere = new ArrayList<>();
+        Scanner sc;
+        try {
+            sc = new Scanner(crawlFil);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        while (sc.hasNext()) {
+
+            String linje = sc.nextLine();
+            String[] attributter = linje.split(";");
+
+            KonkurrenceSvømmer konkurrenceSvømmer = new KonkurrenceSvømmer(
+                    attributter[0],
+                    attributter[1],
+                    Integer.parseInt(attributter[2]),
+                    attributter[3],
+                    Integer.parseInt(attributter[4]),
+                    Double.parseDouble(attributter[5]));
+            konkurrenceSvømmere.add(konkurrenceSvømmer);
+        }
+        sc.close();
+        return konkurrenceSvømmere;
+    }
+    public ArrayList<KonkurrenceSvømmer> indlæsRygrawl()  {
+        ArrayList<KonkurrenceSvømmer> konkurrenceSvømmere = new ArrayList<>();
+        Scanner sc;
+        try {
+            sc = new Scanner(rygcrawlFil);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        while (sc.hasNext()) {
+
+            String linje = sc.nextLine();
+            String[] attributter = linje.split(";");
+
+            KonkurrenceSvømmer konkurrenceSvømmer = new KonkurrenceSvømmer(
+                    attributter[0],
+                    attributter[1],
+                    Integer.parseInt(attributter[2]),
+                    attributter[3],
+                    Integer.parseInt(attributter[4]),
+                    Double.parseDouble(attributter[5]));
+                    konkurrenceSvømmere.add(konkurrenceSvømmer);
+        }
+        sc.close();
+        return konkurrenceSvømmere;
+    }
+
+
+    public ArrayList<KonkurrenceSvømmer> indlæsBrystvømning()  {
+        ArrayList<KonkurrenceSvømmer> konkurrenceSvømmere = new ArrayList<>();
+        Scanner sc;
+        try {
+            sc = new Scanner(brystsvømningFil);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        while (sc.hasNext()) {
+
+            String linje = sc.nextLine();
+            String[] attributter = linje.split(";");
+
+            KonkurrenceSvømmer konkurrenceSvømmer = new KonkurrenceSvømmer(
+                    attributter[0],
+                    attributter[1],
+                    Integer.parseInt(attributter[2]),
+                    attributter[3],
+                    Integer.parseInt(attributter[4]),
+                    Double.parseDouble(attributter[5]));
+            konkurrenceSvømmere.add(konkurrenceSvømmer);
+        }
+        sc.close();
+        return konkurrenceSvømmere;
+    }
+    public ArrayList<KonkurrenceSvømmer> indlæsButterfly()  {
+        ArrayList<KonkurrenceSvømmer> konkurrenceSvømmere = new ArrayList<>();
+        Scanner sc;
+        try {
+            sc = new Scanner(butterflyFil);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        while (sc.hasNext()) {
+
+            String linje = sc.nextLine();
+            String[] attributter = linje.split(";");
+
+            KonkurrenceSvømmer konkurrenceSvømmer = new KonkurrenceSvømmer(
+                    attributter[0],
+                    attributter[1],
+                    Integer.parseInt(attributter[2]),
+                    attributter[3],
+                    Integer.parseInt(attributter[4]),
+                    Double.parseDouble(attributter[5]));
+            konkurrenceSvømmere.add(konkurrenceSvømmer);
+        }
+        sc.close();
+        return konkurrenceSvømmere;
+    }
     public Medlem nyMedlem(String navn, String efternavn, int alder, String køn, boolean konkurrencesvømmer, String hold, String disciplin, double træningsresultater, boolean studerende, int medlemsNummer) {
-        Medlem medlem = new Medlem(navn, efternavn, alder, køn, konkurrencesvømmer, hold, disciplin, træningsresultater, studerende, medlemsNummer);
+        Medlem medlem = new Medlem(navn, efternavn, alder, køn, konkurrencesvømmer, hold, disciplin, træningsresultater, studerende, medlemsNummer) {
+            @Override
+            public double getTid() {
+                return 0;
+            }
+
+            @Override
+            public void setTid(double tid) {
+
+            }
+        };
         medlemmer.add(medlem);
         return medlem;
     }

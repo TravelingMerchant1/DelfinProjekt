@@ -1,6 +1,6 @@
 package Datahandler;
 
-public class Medlem {
+public abstract class Medlem {
 
     private String navn;
     private String efternavn;
@@ -52,6 +52,7 @@ public class Medlem {
     public String getNavn() {
         return navn;
     }
+
 
     public void setNavn(String navn) {
         this.navn = navn;
@@ -133,4 +134,7 @@ public class Medlem {
     public double getTræningsresultater() {
         return træningsresultat;
     }
+
+    public abstract double getTid();
+    public abstract void setTid(double tid);
 }

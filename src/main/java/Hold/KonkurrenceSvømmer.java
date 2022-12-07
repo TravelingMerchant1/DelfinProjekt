@@ -10,10 +10,10 @@ public class KonkurrenceSvømmer extends Medlem {
         this.tid = tid;
     }
 
+    @Override
     public double getTid() {
         return tid;
     }
-
     public void setTid(double tid) {
         this.tid = tid;
     }

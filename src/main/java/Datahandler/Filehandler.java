@@ -124,7 +124,7 @@ public class Filehandler {
 
 
 
-    public void skrivKonkurrenceSvømmerData(PrintWriter output, KonkurrenceSvømmer konkurrenceSvømmer) {
+    static void skrivKonkurrenceSvømmerData(PrintWriter output, KonkurrenceSvømmer konkurrenceSvømmer) {
             output.print(konkurrenceSvømmer.getNavn());
             output.print(";");
             output.print(konkurrenceSvømmer.getEfternavn());

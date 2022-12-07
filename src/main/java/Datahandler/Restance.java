@@ -35,7 +35,17 @@ public class Restance {
                     attributter[3],
                     Boolean.parseBoolean(attributter[5]),
                     Boolean.parseBoolean(attributter[6]),
-                    Integer.parseInt(attributter[7]));
+                    Integer.parseInt(attributter[7])) {
+                @Override
+                public double getTid() {
+                    return 0;
+                }
+
+                @Override
+                public void setTid(double tid) {
+
+                }
+            };
             medlemmer.add(indlæstMedlem);
         }
         sc.close();
@@ -62,7 +72,17 @@ public class Restance {
                     attributter[3],
                     Boolean.parseBoolean(attributter[5]),
                     Boolean.parseBoolean(attributter[6]),
-                    Integer.parseInt(attributter[7]));
+                    Integer.parseInt(attributter[7])) {
+                @Override
+                public double getTid() {
+                    return 0;
+                }
+
+                @Override
+                public void setTid(double tid) {
+
+                }
+            };
             medlemmer.add(indlæstMedlem);
         }
         sc.close();
