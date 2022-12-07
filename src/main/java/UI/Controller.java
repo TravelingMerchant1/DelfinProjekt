@@ -10,13 +10,15 @@ public class Controller {
     private Database database = new Database();
     private Filehandler filehandler = new Filehandler();;
     private Kontingens kontingens = new Kontingens();
+    private Restance restance = new Restance();
+    private MedlemsNummer medlemsNummer = new MedlemsNummer();
 
     public void kontingentOversigt(){
         kontingens.kontingentOversigt(database);
     }
 
     public void restanceFil(){
-        database.restanceFil();
+        restance.restanceFil();
     }
 
     public void aldersOversigt(){
@@ -37,35 +39,35 @@ public class Controller {
     }
 
     public ArrayList<Medlem> indlæsIRestance(){
-        return database.indlæsRestance();
+        return restance.indlæsRestance();
     }
 
     public ArrayList<Medlem> indlæsIkkeIRestance(){
-        return database.indlæsIkkeIRestance();
+        return restance.indlæsIkkeIRestance();
     }
 
     public void tagUdAfRestance(int input){
-        database.tageUdAfRestance(input);
+        restance.tageUdAfRestance(input);
     }
 
     public void sætIRestance(int input){
-        database.sætIRestance(input);
+        restance.sætIRestance(input);
     }
 
     public double kontingentTotal(){
-        return kontingens.kontingentTotal(database);
+        return kontingens.kontingentTotal(restance);
     }
 
     public int medlemsNummer(){
-        return database.medlemsNummer();
+        return medlemsNummer.medlemsNummer();
     }
 
     public void nytMedlemsNummer(){
-        database.nytMedlemsNummer();
+        medlemsNummer.nytMedlemsNummer();
     }
 
     public void sidsteMedlemsNummer(){
-        database.sidsteMedlemsNummer();
+        medlemsNummer.sidsteMedlemsNummer();
     }
 
     public Medlem nyMedlem(String navn, String efternavn, int alder, String køn, boolean aktivitetsform, boolean konkurrencesvømmer, String hold, String disciplin, double træningsresultat, boolean studerende, int medlemsNummer){

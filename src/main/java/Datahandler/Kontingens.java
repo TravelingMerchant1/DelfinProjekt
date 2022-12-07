@@ -27,9 +27,9 @@ public class Kontingens {
         }
     }
 
-    public double kontingentTotal(Database database) {
+    public double kontingentTotal(Restance restance) {
         double kontingentTotal = 0;
-        for (Medlem medlem : database.indlæsIkkeIRestance()) {
+        for (Medlem medlem : restance.indlæsIkkeIRestance()) {
             double kontingent = 0;
             if (medlem.getAlder() < 18) {
                 kontingent = 1000;
