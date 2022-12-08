@@ -325,7 +325,7 @@ public class Database {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        while (sc.hasNext()) {
+        while (sc.hasNextLine()) {
 
             String linje = sc.nextLine();
             String[] attributter = linje.split(";");

@@ -628,7 +628,10 @@ public class UserInterface {
         System.out.println("indtast nummer på medlem der skal redigeres:");
         int nr = input.nextInt();
         input.nextLine();
-
+        if (nr<0 || nr> controller.indlæsCrawl().size()) {
+            System.out.println(("indtast det rigtig nummer."));
+            return;
+        }
         KonkurrenceSvømmer redigerCrawlTid = controller.indlæsCrawl().get(nr - 1); // index starter fra 0
         System.out.println("Edit medlem: " + navnMedStort(redigerCrawlTid) + ", Bedste Tid: " + redigerCrawlTid.getTid());
 
