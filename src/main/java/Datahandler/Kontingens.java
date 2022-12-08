@@ -1,5 +1,7 @@
 package Datahandler;
 
+import Medlemmer.Medlem;
+
 public class Kontingens {
 
     public Kontingens(){

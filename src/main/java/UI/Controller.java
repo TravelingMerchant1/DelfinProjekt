@@ -1,6 +1,6 @@
 package UI;
 import Datahandler.*;
-import Hold.*;
+import Medlemmer.*;
 
 
 import java.util.ArrayList;
@@ -55,10 +55,6 @@ public class Controller {
         database.redigerMedlem(input, navn, efternavn, alder, køn, konkurrencesvømmer);
     }
 
-
-
-
-
     public ArrayList<Medlem> indlæsIRestance(){
         return restance.indlæsRestance();
     }
@@ -111,6 +107,8 @@ public class Controller {
         filehandler.gemMedlemIRestance(getMedlemmer());
     }
 
+    //INDLÆS HOLD CSV
+
     public ArrayList<KonkurrenceSvømmer> indlæsCrawl(){
         return database.indlæsCrawl();
     }
@@ -124,6 +122,7 @@ public class Controller {
         return database.indlæsButterfly();
     }
 
+    //REDIGER SVØMME TIDER
     public void redigerCrawlTid(int input, String tid){
         database.redigerCrawlTid(input, tid);
     }
@@ -135,5 +134,19 @@ public class Controller {
     }
     public void redigerButterflyTid(int input, String tid){
         database.redigerButterflyTid(input, tid);
+    }
+
+    // SORTER BEDSTE SVØMMETIDER
+    public ArrayList<KonkurrenceSvømmer> sorterCrawlTid(){
+        return database.sorterCrawlTid();
+    }
+    public ArrayList<KonkurrenceSvømmer> sorterRygcrawlTid(){
+        return database.sorterRygcrawlTid();
+    }
+    public ArrayList<KonkurrenceSvømmer> sorterBrystsvømningTid(){
+        return database.sorterBrystsvømningTid();
+    }
+    public ArrayList<KonkurrenceSvømmer> sorterButterflyEftertid(){
+        return database.sorterButterflyTid();
     }
 }

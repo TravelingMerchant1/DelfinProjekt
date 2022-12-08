@@ -1,4 +1,4 @@
-package Datahandler;
+package Medlemmer;
 
 public abstract class Medlem {
 

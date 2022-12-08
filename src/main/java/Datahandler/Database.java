@@ -1,12 +1,12 @@
 package Datahandler;
 
-import Hold.KonkurrenceSvømmer;
+import Medlemmer.KonkurrenceSvømmer;
+import Medlemmer.Medlem;
 
 import java.io.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Database {
     private ArrayList<Medlem> medlemmer = new ArrayList<>();
@@ -453,6 +453,29 @@ public class Database {
         this.konkurrenceSvømmere = konkurrenceSvømmere;
     }
 
+    public ArrayList sorterCrawlTid(){
 
+        ArrayList<KonkurrenceSvømmer> tempSvømmer = new ArrayList<>((indlæsCrawl()));
+        Collections.sort(tempSvømmer, new Medlemmer.bedsteTidComperator());
+        return tempSvømmer;
+    }
+    public ArrayList sorterRygcrawlTid(){
+
+        ArrayList<KonkurrenceSvømmer> tempSvømmer = new ArrayList<>((indlæsRygrawl()));
+        Collections.sort(tempSvømmer, new Medlemmer.bedsteTidComperator());
+        return tempSvømmer;
+    }
+    public ArrayList sorterBrystsvømningTid(){
+
+        ArrayList<KonkurrenceSvømmer> tempSvømmer = new ArrayList<>((indlæsBrystvømning()));
+        Collections.sort(tempSvømmer, new Medlemmer.bedsteTidComperator());
+        return tempSvømmer;
+    }
+    public ArrayList sorterButterflyTid(){
+
+        ArrayList<KonkurrenceSvømmer> tempSvømmer = new ArrayList<>((indlæsButterfly()));
+        Collections.sort(tempSvømmer, new Medlemmer.bedsteTidComperator());
+        return tempSvømmer;
+    }
 
 }

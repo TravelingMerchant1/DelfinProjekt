@@ -1,6 +1,4 @@
-package Hold;
-
-import Datahandler.Medlem;
+package Medlemmer;
 
 public class KonkurrenceSvømmer extends Medlem {
     private double tid;
@@ -9,6 +7,8 @@ public class KonkurrenceSvømmer extends Medlem {
         super(navn, efternavn, alder, køn, medlemsNummer);
         this.tid = tid;
     }
+
+
 
     @Override
     public double getTid() {

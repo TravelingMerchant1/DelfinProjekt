@@ -1,6 +1,7 @@
 package Datahandler;
 
-import Hold.KonkurrenceSvømmer;
+import Medlemmer.KonkurrenceSvømmer;
+import Medlemmer.Medlem;
 
 import java.io.*;
 import java.util.ArrayList;

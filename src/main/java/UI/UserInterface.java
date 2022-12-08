@@ -3,8 +3,8 @@ package UI;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import Datahandler.*;
-import Hold.KonkurrenceSvømmer;
+import Medlemmer.KonkurrenceSvømmer;
+import Medlemmer.Medlem;
 
 public class UserInterface {
     private int menuvalg;
@@ -12,7 +12,6 @@ public class UserInterface {
     private Controller controller = new Controller();
 
     //MENUER
-
     public void startMenu() throws FileNotFoundException {
         controller.restanceFil();
         System.out.println("Velkommen til Delfinens administrative system");
@@ -41,7 +40,6 @@ public class UserInterface {
                 break;
         }
     }
-
 
     public void formandMenu() throws FileNotFoundException {
         System.out.println("Formands Menu:");
@@ -114,20 +112,75 @@ public class UserInterface {
 
     public void trænerMenu() throws FileNotFoundException {
         System.out.println("Træner Menu:");
-        System.out.println("1) Rediger Crawl Tid");
-        System.out.println("2) Rediger Rygcrawl Tid");
-        System.out.println("3) Rediger Brystsvømning Tid");
-        System.out.println("4) Rediger Butterfly Tid");
-        System.out.println("5) Oversigt Over Crawl Hold");
-        System.out.println("6) Oversigt Over Rygcrawl Hold.");
-        System.out.println("7) Oversigt Over Brystsvømnings Hold.");
-        System.out.println("8) Oversigt Over Butterfly Hold.");
-        System.out.println("9) Oversigt Til Udtagelse.");
-        System.out.println(") Tilbage Til Hovedmenu");
+        System.out.println("1) Hold Oversigt");
+        System.out.println("2) Rediger Tider");
+        System.out.println("3) Bedste Svømmer Fra Hold Oversigt");
         trænerMenuInput();
     }
 
     public void trænerMenuInput() throws FileNotFoundException {
+        menuValgInput();
+        switch (menuvalg) {
+            case 1:
+                trænerHoldOversigt();
+                break;
+            case 2:
+                trænerRedigerTiderOversigt();
+                break;
+            case 3:
+                trænerBedstSvømmereOversigt();
+                break;
+            case 9:
+                startMenu();
+                break;
+
+        }
+    }
+
+    public void trænerHoldOversigt() throws FileNotFoundException {
+        System.out.println("Hvilket hold vil du have oversigt over?");
+        System.out.println("1) Crawl");
+        System.out.println("2) Rygcrawl");
+        System.out.println("3) Brystsvømning");
+        System.out.println("4) Butterfly");
+        trænerHoldOversigtInput();
+    }
+
+    public void trænerHoldOversigtInput() throws FileNotFoundException {
+        menuValgInput();
+        switch (menuvalg) {
+            case 1:
+                juniorCrawl();
+                seniorCrawl();
+                break;
+            case 2:
+                juniorRygcrawl();
+                seniorRygcrawl();
+                break;
+            case 3:
+                juniorBryst();
+                seniorBryst();
+                break;
+            case 4:
+                juniorButterfly();
+                seniorButterfly();
+                break;
+            case 9:
+                startMenu();
+                break;
+        }
+    }
+
+    public void trænerRedigerTiderOversigt() throws FileNotFoundException {
+        System.out.println("Fra hvilket hold vil du have redigere en svømmers tid?");
+        System.out.println("1) Crawl");
+        System.out.println("2) Rygcrawl");
+        System.out.println("3) Brystsvømning");
+        System.out.println("4) Butterfly");
+        trænerRedigerTiderOversigtInput();
+    }
+
+    public void trænerRedigerTiderOversigtInput() throws FileNotFoundException {
         menuValgInput();
         switch (menuvalg) {
             case 1:
@@ -142,29 +195,46 @@ public class UserInterface {
             case 4:
                 redigerButterflyTid(input);
                 break;
-            case 5:
-                juniorCrawl();
-                seniorCrawl();
+            case 9:
+                startMenu();
                 break;
-            case 6:
-                juniorRygcrawl();
-                seniorRygcrawl();;
+        }
+    }
+
+    public void trænerBedstSvømmereOversigt() throws FileNotFoundException {
+        System.out.println("Hvilket hold vil du have oversigt over de bedste svømmere?");
+        System.out.println("1) Crawl");
+        System.out.println("2) Rygcrawl");
+        System.out.println("3) Brystsvømning");
+        System.out.println("4) Butterfly");
+        trænerBedsteSvømmereOversigtInput();
+    }
+
+    public void trænerBedsteSvømmereOversigtInput() throws FileNotFoundException {
+        menuValgInput();
+        switch (menuvalg) {
+            case 1:
+                sorterCrawlTidJunior();
+                sorterCrawlTidSenior();
+
                 break;
-            case 7:
-                juniorBryst();
-                seniorBryst();
+            case 2:
+                sorterRygcrawlTidJunior();
+                sorterRygcrawlTidSenior();
                 break;
-            case 8:
-                juniorButterfly();
-                seniorButterfly();
+            case 3:
+                sorterBrystsvømningTidJunior();
+                sorterBrystsvømningTidSenior();
+                break;
+            case 4:
+                sorterButterflyTidJunior();
+                sorterButterflyTidSenior();
                 break;
             case 9:
                 startMenu();
                 break;
-
         }
     }
-
     public void menuValgInput() {
         menuvalg = input.nextInt();
         input.nextLine();
@@ -175,7 +245,6 @@ public class UserInterface {
         System.exit(0);
     }
 
-
     public void start() throws FileNotFoundException {
         boolean run = true;
         do {
@@ -183,10 +252,7 @@ public class UserInterface {
         } while (run == true);
     }
 
-
-
     //INDMELDELSE, REDIGERING, SLETNING
-
     public void indmeldelse() {
         String hold = null;
         String disciplin = null;
@@ -244,20 +310,20 @@ public class UserInterface {
             switch (konkurrenceSvømmerString) {
                 case "k":
                     System.out.println("Skal medlem være på crawl hold? J/N");
-                    if (input.next().equalsIgnoreCase("j")){
-                        erCrawler=true;
+                    if (input.next().equalsIgnoreCase("j")) {
+                        erCrawler = true;
                     }
                     System.out.println("Skal medlem være på rygcrawl hold? J/N");
-                    if (input.next().equalsIgnoreCase("j")){
-                        erRygcrawler=true;
+                    if (input.next().equalsIgnoreCase("j")) {
+                        erRygcrawler = true;
                     }
                     System.out.println("Skal medlem være på brystsvømning hold? J/N");
-                    if (input.next().equalsIgnoreCase("j")){
-                        erBrystsvømmer=true;
+                    if (input.next().equalsIgnoreCase("j")) {
+                        erBrystsvømmer = true;
                     }
                     System.out.println("Skal medlem være på butterfly hold? J/N");
-                    if (input.next().equalsIgnoreCase("j")){
-                        erButterflyer=true;
+                    if (input.next().equalsIgnoreCase("j")) {
+                        erButterflyer = true;
                     }
                     erKonkurrenceSvømmer = true;
                     korrektInput = true;
@@ -294,16 +360,16 @@ public class UserInterface {
 
         if (erKonkurrenceSvømmer) {
             KonkurrenceSvømmer konkurrenceSvømmer = controller.nyKonkurrenceSvømmer(navn, efternavn, alder, køn, medlemsNummer, tid);
-            if (erCrawler){
+            if (erCrawler) {
                 controller.gemMedlemCrawl();
             }
-            if (erRygcrawler){
+            if (erRygcrawler) {
                 controller.gemMedlemRygcrawl();
             }
-            if (erBrystsvømmer){
+            if (erBrystsvømmer) {
                 controller.gemMedlemBrystsvømning();
             }
-            if (erButterflyer){
+            if (erButterflyer) {
                 controller.gemMedlemButtefly();
             }
         }
@@ -378,6 +444,7 @@ public class UserInterface {
     public void aldersOversigt() {
         controller.aldersOversigt();
     }
+
     public void medlemsOversigt() {
         System.out.println(controller.indlæsMedlemmer());
         for (Medlem medlem : controller.indlæsMedlemmer()) {
@@ -385,56 +452,61 @@ public class UserInterface {
         }
 
     }
-    public void juniorCrawl(){
+
+    public void juniorCrawl() {
         System.out.println("Junior Crawl Hold, Træner: Jens");
 
         System.out.println("---------------------------------");
-        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsCrawl()){
-            if (konkurrenceSvømmer.getAlder()<18){
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsCrawl()) {
+            if (konkurrenceSvømmer.getAlder() < 18) {
                 System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
             }
         }
         System.out.println("---------------------------------");
     }
-    public void seniorCrawl(){
+
+    public void seniorCrawl() {
         System.out.println("Senior Crawl Hold, Træner: Jens");
 
         System.out.println("---------------------------------");
-        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsCrawl()){
-            if (konkurrenceSvømmer.getAlder() >=18){
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsCrawl()) {
+            if (konkurrenceSvømmer.getAlder() >= 18) {
                 System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
             }
         }
         System.out.println("---------------------------------");
     }
-    public void juniorRygcrawl(){
+
+    public void juniorRygcrawl() {
         System.out.println("Junior Rygcrawl Hold, Træner: Jens");
 
         System.out.println("---------------------------------");
-        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsRygcrawl()){
-            if (konkurrenceSvømmer.getAlder()<18){
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsRygcrawl()) {
+            if (konkurrenceSvømmer.getAlder() < 18) {
                 System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
             }
         }
         System.out.println("---------------------------------");
     }
-    public void seniorRygcrawl(){
+
+    public void seniorRygcrawl() {
         System.out.println("Senior Rygcrawl Hold, Træner: Jens");
 
         System.out.println("---------------------------------");
-        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsRygcrawl()){
-            if (konkurrenceSvømmer.getAlder()>=18){
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsRygcrawl()) {
+            if (konkurrenceSvømmer.getAlder() >= 18) {
                 System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
             }
         }
         System.out.println("---------------------------------");
     }
-    public void juniorBryst(){
+
+    public void juniorBryst() {
         System.out.println("Junior Brystsvømnings Hold, Træner: Jens");
 
         System.out.println("---------------------------------");
-        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsBrystsvømning()){
-            if (konkurrenceSvømmer.getAlder()<18){
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsBrystsvømning()) {
+            if (konkurrenceSvømmer.getAlder() < 18) {
                 System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
             }
         }
@@ -442,23 +514,25 @@ public class UserInterface {
 
         System.out.println("---------------------------------");
     }
-    public void seniorBryst(){
+
+    public void seniorBryst() {
         System.out.println("Senior Brystsvømnings Hold, Træner: Jens");
 
         System.out.println("---------------------------------");
-        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsBrystsvømning()){
-            if (konkurrenceSvømmer.getAlder()>=18){
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsBrystsvømning()) {
+            if (konkurrenceSvømmer.getAlder() >= 18) {
                 System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
             }
         }
         System.out.println("---------------------------------");
     }
-    public void juniorButterfly(){
+
+    public void juniorButterfly() {
         System.out.println("Junior Rygcrawl Hold, Træner: Jens");
 
         System.out.println("---------------------------------");
-        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsButterfly()){
-            if (konkurrenceSvømmer.getAlder()<18){
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsButterfly()) {
+            if (konkurrenceSvømmer.getAlder() < 18) {
                 System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
             }
         }
@@ -466,21 +540,20 @@ public class UserInterface {
 
         System.out.println("---------------------------------");
     }
-    public void seniorButterfly(){
+
+    public void seniorButterfly() {
         System.out.println("Senior Rygcrawl Hold, Træner: Jens");
 
         System.out.println("---------------------------------");
-        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsButterfly()){
-            if (konkurrenceSvømmer.getAlder()>=18){
+        for (KonkurrenceSvømmer konkurrenceSvømmer : controller.indlæsButterfly()) {
+            if (konkurrenceSvømmer.getAlder() >= 18) {
                 System.out.println("Medlemsnummer: " + konkurrenceSvømmer.getMedlemsNummer() + ", " + navnMedStort(konkurrenceSvømmer) + ". Bedste tid: " + konkurrenceSvømmer.getTid() + " sek.");
             }
         }
         System.out.println("---------------------------------");
     }
 
-
     //KONTINGENT
-
     public void kontigentOversigt() {
         controller.kontingentOversigt();
     }
@@ -490,7 +563,6 @@ public class UserInterface {
     }
 
     //RESTANCE
-
     public void sætIRestance() {
         for (int i = 0; i < controller.indlæsIkkeIRestance().size(); i++) {
             System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsIkkeIRestance().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsIkkeIRestance().get(i)));
@@ -499,13 +571,13 @@ public class UserInterface {
         System.out.println("indtast nummer på medlem der skal flyttes til restance:");
         int nr = input.nextInt();
         input.nextLine();
-        System.out.println("Medlem: " + navnMedStort(controller.indlæsIkkeIRestance().get(nr)) + ", " + controller.indlæsIkkeIRestance().get(nr).getMedlemsNummer() +" sat i af restance.");
+        System.out.println("Medlem: " + navnMedStort(controller.indlæsIkkeIRestance().get(nr)) + ", " + controller.indlæsIkkeIRestance().get(nr).getMedlemsNummer() + " sat i af restance.");
         controller.sætIRestance(nr);
 
 
     }
 
-    public void tagUdAfRestance(){
+    public void tagUdAfRestance() {
         for (int i = 0; i < controller.indlæsIRestance().size(); i++) {
             System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsIRestance().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsIRestance().get(i)));
         }
@@ -513,14 +585,15 @@ public class UserInterface {
         System.out.println("indtast nummer på medlem der skal flyttes til restance:");
         int nr = input.nextInt();
         input.nextLine();
-        System.out.println("Medlem: " + navnMedStort(controller.indlæsIRestance().get(nr))+ ", " + controller.indlæsIkkeIRestance().get(nr).getMedlemsNummer()+ " taget ud af restance.");
+        System.out.println("Medlem: " + navnMedStort(controller.indlæsIRestance().get(nr)) + ", " + controller.indlæsIkkeIRestance().get(nr).getMedlemsNummer() + " taget ud af restance.");
         controller.tagUdAfRestance(nr);
 
 
     }
+
     public void restanceOverblik() {
         for (int i = 0; i < controller.indlæsIRestance().size(); i++) {
-                System.out.println(i + 1 + ") " + controller.indlæsIRestance().get(i).getMedlemsNummer() + " " + navnMedStort(controller.indlæsIRestance().get(i)));
+            System.out.println(i + 1 + ") " + controller.indlæsIRestance().get(i).getMedlemsNummer() + " " + navnMedStort(controller.indlæsIRestance().get(i)));
         }
     }
 
@@ -548,7 +621,7 @@ public class UserInterface {
     }
 
     //REDIGER SVØMMETIDER
-    public void redigerCrawlTid(Scanner input){
+    public void redigerCrawlTid(Scanner input) {
         for (int i = 0; i < controller.indlæsCrawl().size(); i++) {
             System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsCrawl().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsCrawl().get(i)));
         }
@@ -568,7 +641,7 @@ public class UserInterface {
 
     }
 
-    public void redigerRygcrawlTid(Scanner input){
+    public void redigerRygcrawlTid(Scanner input) {
         for (int i = 0; i < controller.indlæsRygcrawl().size(); i++) {
             System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsRygcrawl().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsRygcrawl().get(i)));
         }
@@ -588,7 +661,7 @@ public class UserInterface {
 
     }
 
-    public void redigerBrystsvømningTid(Scanner input){
+    public void redigerBrystsvømningTid(Scanner input) {
         for (int i = 0; i < controller.indlæsBrystsvømning().size(); i++) {
             System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsBrystsvømning().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsBrystsvømning().get(i)));
         }
@@ -608,7 +681,7 @@ public class UserInterface {
 
     }
 
-    public void redigerButterflyTid(Scanner input){
+    public void redigerButterflyTid(Scanner input) {
         for (int i = 0; i < controller.indlæsButterfly().size(); i++) {
             System.out.println(i + 1 + ") Medlem Nummer: " + controller.indlæsButterfly().get(i).getMedlemsNummer() + ": " + navnMedStort(controller.indlæsButterfly().get(i)));
         }
@@ -628,8 +701,124 @@ public class UserInterface {
 
     }
 
+    //SORTER EFTER TID
+    public void sorterCrawlTidJunior() {
+        int counter = 1;
+        System.out.println("Junior Crawl Bedste Tider:");
 
+        for (int i = 0; i < controller.sorterCrawlTid().size(); i++) {
+            if (controller.sorterRygcrawlTid().get(i).getAlder() < 18) {
+                System.out.println(counter + ") " + controller.sorterRygcrawlTid().get(i).getNavn() + ", Tid: " + controller.sorterCrawlTid().get(i).getTid());
+                counter++;
+            }
+            if (counter > 5) {
+                break;
+            }
+        }
+    }
 
+    public void sorterCrawlTidSenior() {
+        int counter = 1;
+        System.out.println("Senior Crawl Bedste Tider:");
 
+        for (int i = 0; i < controller.sorterRygcrawlTid().size(); i++) {
+            if (controller.sorterRygcrawlTid().get(i).getAlder() >= 18) {
+                System.out.println(counter + ") " + controller.sorterCrawlTid().get(i).getNavn() + ", Tid: " + controller.sorterBrystsvømningTid().get(i).getTid());
+                counter++;
+            }
+            if (counter > 5) {
+                break;
+            }
+        }
+    }
 
+    public void sorterRygcrawlTidJunior() {
+        int counter = 1;
+        System.out.println("Junior Rygcrawl Bedste Tider:");
+
+        for (int i = 0; i < controller.sorterRygcrawlTid().size(); i++) {
+            if (controller.sorterRygcrawlTid().get(i).getAlder() < 18) {
+                System.out.println(counter + ") " + controller.sorterRygcrawlTid().get(i).getNavn() + ", Tid: " + controller.sorterRygcrawlTid().get(i).getTid());
+                counter++;
+            }
+            if (counter > 5) {
+                break;
+            }
+        }
+    }
+
+    public void sorterRygcrawlTidSenior() {
+        int counter = 1;
+        System.out.println("Senior Rygcrawl Bedste Tider:");
+
+        for (int i = 0; i < controller.sorterRygcrawlTid().size(); i++) {
+            if (controller.sorterRygcrawlTid().get(i).getAlder() >= 18) {
+                System.out.println(counter + ") " + controller.sorterRygcrawlTid().get(i).getNavn() + ", Tid: " + controller.sorterRygcrawlTid().get(i).getTid());
+                counter++;
+            }
+            if (counter > 5) {
+                break;
+            }
+        }
+    }
+
+    public void sorterBrystsvømningTidJunior() {
+        int counter = 1;
+        System.out.println("Junior Brystsvømning Bedste Tider:");
+
+        for (int i = 0; i < controller.sorterBrystsvømningTid().size(); i++) {
+            if (controller.sorterBrystsvømningTid().get(i).getAlder() < 18) {
+                System.out.println(counter + ") " + controller.sorterBrystsvømningTid().get(i).getNavn() + ", Tid: " + controller.sorterBrystsvømningTid().get(i).getTid());
+                counter++;
+            }
+            if (counter > 5) {
+                break;
+            }
+        }
+    }
+
+    public void sorterBrystsvømningTidSenior() {
+        int counter = 1;
+        System.out.println("Senior Brystsvømning Bedste Tider:");
+
+        for (int i = 0; i < controller.sorterBrystsvømningTid().size(); i++) {
+            if (controller.sorterBrystsvømningTid().get(i).getAlder() >= 18) {
+                System.out.println(counter + ") " + controller.sorterBrystsvømningTid().get(i).getNavn() + ", Tid: " + controller.sorterBrystsvømningTid().get(i).getTid());
+                counter++;
+            }
+            if (counter > 5) {
+                break;
+            }
+        }
+    }
+
+    public void sorterButterflyTidJunior() {
+        int counter = 1;
+        System.out.println("Junior Butterfly Bedste Tider:");
+
+        for (int i = 0; i < controller.sorterButterflyEftertid().size(); i++) {
+            if (controller.sorterButterflyEftertid().get(i).getAlder() < 18) {
+                System.out.println(counter + ") " + controller.sorterButterflyEftertid().get(i).getNavn() + ", Tid: " + controller.sorterButterflyEftertid().get(i).getTid());
+                counter++;
+            }
+            if (counter > 5) {
+                break;
+            }
+        }
+    }
+
+    public void sorterButterflyTidSenior() {
+        int counter = 1;
+        System.out.println("Senior Butterfly Bedste Tider:");
+
+        for (int i = 0; i < controller.sorterButterflyEftertid().size(); i++) {
+            if (controller.sorterButterflyEftertid().get(i).getAlder() >= 18) {
+                System.out.println(counter + ") " + controller.sorterButterflyEftertid().get(i).getNavn() + ", Tid: " + controller.sorterButterflyEftertid().get(i).getTid());
+                counter++;
+            }
+            if (counter > 5) {
+                break;
+            }
+        }
+    }
 }
